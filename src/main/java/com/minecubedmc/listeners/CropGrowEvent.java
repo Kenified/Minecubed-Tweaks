@@ -25,14 +25,15 @@ public class CropGrowEvent implements Listener {
 
         if (eventBlock.getType().equals( Material.CARROT )){
             //Check if its optimal season
-            if (ageable.getAge() != 7){
+            if (!season.equals("SUMMER")){
                 return;
             }
 
             //Check if the crop is fully grown
-            if (!season.equals("SUMMER")){
+            if (ageable.getAge() != 7){
                 return;
             }
+
 
             //Chance for crop to be giant
             if (new Random().nextInt(100) > 50 ){
