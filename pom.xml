@@ -58,10 +58,6 @@
             <id>papermc-repo</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
-<!--        <repository>-->
-<!--            <id>sonatype</id>-->
-<!--            <url>https://oss.sonatype.org/content/groups/public/</url>-->
-<!--        </repository>-->
         <repository>
             <id>jitpack-repo</id>
             <url>https://jitpack.io</url>
