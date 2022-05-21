@@ -22,6 +22,14 @@ public class CropGrowEvent implements Listener {
     public void onCropGrow(BlockGrowEvent e){
         Block eventBlock = e.getBlock();
         Material material = eventBlock.getType();
+        Material newStateMaterial = e.getNewState().getBlockData().getMaterial();
+
+
+        //Block melon and pumpkin blocks from growing from stems
+        if (newStateMaterial.equals(Material.PUMPKIN) || newStateMaterial.equals(Material.MELON) ){
+            e.setCancelled(true);
+            return;
+        }
 
         switch (material){
             case CARROTS:
@@ -60,7 +68,7 @@ public class CropGrowEvent implements Listener {
 
         //Check if current season matches the optimal season, if growth season is "Any", skip check (for nether and end)
         if (growthSeason.equals("Any")){ /* Empty skip season check */ }
-        else if (!currentSeason.equals(growthSeason)){
+        else if (!growthSeason.equals(currentSeason)){
             return;
         }
 
@@ -84,7 +92,7 @@ public class CropGrowEvent implements Listener {
 
         //Check if current season matches the optimal season, if growth season is "Any", skip check (for nether and end)
         if (growthSeason.equals("Any")){ /* Empty skip season check */ }
-        else if (!currentSeason.equals(growthSeason)){
+        else if (!growthSeason.equals(currentSeason)){
             return;
         }
 
