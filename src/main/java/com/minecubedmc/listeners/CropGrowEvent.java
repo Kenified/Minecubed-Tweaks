@@ -25,7 +25,6 @@ public class CropGrowEvent implements Listener {
         Material material = eventBlock.getType();
         Material newStateMaterial = e.getNewState().getBlockData().getMaterial();
 
-
         //Block melon and pumpkin blocks from growing from stems
         if (newStateMaterial.equals(Material.PUMPKIN) || newStateMaterial.equals(Material.MELON) ){
             e.setCancelled(true);
@@ -69,8 +68,9 @@ public class CropGrowEvent implements Listener {
         String currentSeason = plugin.getSapi().getSeason(world).toString();
         CustomBlock giantCrop;
 
-        //Check if the crop is in fertile world
+        //Check if the crop is in fertile world, if not cancel the growth
         if (!fertileWorld.equals(world.toString())){
+            event.setCancelled(true);
             return;
         }
 
@@ -84,7 +84,6 @@ public class CropGrowEvent implements Listener {
 
             //Chance for crop to be giant
             if (new Random().nextInt(100) > (100 - giantChance)) {
-                CustomBlock giantCarrot = CustomBlock.getInstance(customBlockID);
                 if(isDirectional){
                     Directional directional = (Directional) crop.getBlockData();
                     String facing = directional.getFacing().toString().toLowerCase();
