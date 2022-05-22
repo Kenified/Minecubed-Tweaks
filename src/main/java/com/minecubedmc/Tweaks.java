@@ -1,8 +1,6 @@
 package com.minecubedmc;
 
-//import com.minecubedmc.items.Items;
 import com.minecubedmc.listeners.*;
-
 
 import me.casperge.realisticseasons.api.SeasonsAPI;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,13 +15,14 @@ public final class Tweaks extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         sapi = SeasonsAPI.getInstance();
+        saveDefaultConfig();
+
         this.registerListeners();
-        this.getLogger().info("Enabled");
+        this.getLogger().info("Plugin enabled");
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 
     private void registerListeners() {
@@ -35,8 +34,6 @@ public final class Tweaks extends JavaPlugin {
                         new IronGolemItemDrop(this),
                         new SaplingGrowEvent(this),
                         new CropGrowEvent(this)
-
-
                 ).
                 forEach(
                         listener -> this.getServer().getPluginManager()
