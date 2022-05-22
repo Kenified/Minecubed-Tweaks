@@ -3,6 +3,7 @@ package com.minecubedmc.listeners;
 import com.minecubedmc.Tweaks;
 import dev.lone.itemsadder.api.CustomBlock;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.Directional;
@@ -33,46 +34,48 @@ public class CropGrowEvent implements Listener {
 
         switch (material){
             case CARROTS:
-                handleCrop(eventBlock, "Spring", "minecubed:giant_carrot", 50, e);
+                handleCrop(eventBlock, "Spring", "world", "minecubed:giant_carrot", 50, false, e);
                 break;
             case SWEET_BERRY_BUSH:
-                handleCrop(eventBlock, "Spring", "minecubed:giant_strawberry", 50, e);
+                handleCrop(eventBlock, "Spring", "world", "minecubed:giant_strawberry", 50, false, e);
                 break;
             case WHEAT:
-                handleCrop(eventBlock, "Summer", "minecubed:giant_wheat", 50, e);
+                handleCrop(eventBlock, "Summer", "world", "minecubed:giant_wheat", 50, false, e);
                 break;
             case BEETROOTS:
-                handleCrop(eventBlock, "Summer", "minecubed:giant_tomato", 50, e);
+                handleCrop(eventBlock, "Summer", "world", "minecubed:giant_tomato", 50, false, e);
                 break;
             case MELON_STEM:
-                handleCrop(eventBlock, "Summer", "minecubed:giant_melon", 50, e);
+                handleCrop(eventBlock, "Summer", "world", "minecubed:giant_melon", 50, false, e);
                 break;
             case POTATOES:
-                handleCrop(eventBlock, "Fall", "minecubed:giant_potato", 50, e);
+                handleCrop(eventBlock, "Fall", "world", "minecubed:giant_potato", 50, false, e);
                 break;
             case PUMPKIN_STEM:
-                handleCrop(eventBlock, "Fall", "minecubed:giant_pumpkin", 50, e);
+                handleCrop(eventBlock, "Fall", "world", "minecubed:giant_pumpkin", 50, false, e);
                 break;
             case COCOA:
-                handleDirectionalCrop(eventBlock, "Fall", "minecubed:giant_cocoa", 50, e);
+                handleCrop(eventBlock, "Fall", "world", "minecubed:giant_cocoa", 50, true, e);
                 break;
             case NETHER_WART:
-                //Only allow growth for wart in Nether
-                if(!eventBlock.getWorld().toString().equals("the_nether")){
-                    e.setCancelled(true);
-                    break;
-                }
-                handleCrop(eventBlock, "Any", "minecubed:giant_wart", 50, e);
+                handleCrop(eventBlock, "Any", "world_nether", "minecubed:giant_wart", 50, false, e);
                 break;
         }
     }
 
-    private void handleCrop(Block crop, String growthSeason, String customBlockID, int giantChance, BlockGrowEvent event) {
+    private void handleCrop(Block crop, String fertileSeason, String fertileWorld, String customBlockID, int giantChance, Boolean isDirectional,BlockGrowEvent event) {
+        World world = crop.getWorld();
         Ageable ageable = (Ageable) crop.getBlockData();
-        String currentSeason = plugin.getSapi().getSeason(crop.getWorld()).toString();
+        String currentSeason = plugin.getSapi().getSeason(world).toString();
+        CustomBlock giantCrop;
 
-        //Check if current season matches the optimal season, or if its allowed to grow in any season
-        if (growthSeason.equals("Any") || growthSeason.equals(currentSeason)) {
+        //Check if the crop is in fertile world
+        if (!fertileWorld.equals(world.toString())){
+            return;
+        }
+
+        //Check if current season matches the fertile season, or if it's allowed to grow in any season
+        if (fertileSeason.equals("Any") || fertileSeason.equals(currentSeason)) {
 
             //Check if the crop is fully grown
             if (ageable.getAge() != ageable.getMaximumAge() - 1) {
@@ -82,34 +85,16 @@ public class CropGrowEvent implements Listener {
             //Chance for crop to be giant
             if (new Random().nextInt(100) > (100 - giantChance)) {
                 CustomBlock giantCarrot = CustomBlock.getInstance(customBlockID);
-
+                if(isDirectional){
+                    Directional directional = (Directional) crop.getBlockData();
+                    String facing = directional.getFacing().toString().toLowerCase();
+                    giantCrop = CustomBlock.getInstance(customBlockID.concat("_").concat(facing));
+                }
+                else{
+                    giantCrop = CustomBlock.getInstance(customBlockID);
+                }
                 event.setCancelled(true);
-                giantCarrot.place(crop.getLocation());
-            }
-        }
-    }
-
-    private void handleDirectionalCrop(Block crop, String growthSeason, String customBlockID, int giantChance, BlockGrowEvent event){
-        Ageable ageable = (Ageable) crop.getBlockData();
-        String currentSeason = plugin.getSapi().getSeason(crop.getWorld()).toString();
-
-        //Check if current season matches the optimal season, if growth season is "Any", skip check (for nether and end)
-        if (growthSeason.equals("Any") || growthSeason.equals(currentSeason)) {
-
-            //Check if the crop is fully grown
-            if (ageable.getAge() != ageable.getMaximumAge() - 1 ){
-                return;
-            }
-
-            //Chance for crop to be giant
-            if (new Random().nextInt(100) > (100 - giantChance) ){
-                Directional directional = (Directional) crop.getBlockData();
-                String facing = directional.getFacing().toString().toLowerCase();
-                CustomBlock giantCocoa = CustomBlock.getInstance(customBlockID.concat("_").concat(facing));
-
-                event.setCancelled(true);
-                giantCocoa.place(crop.getLocation());
-
+                giantCrop.place(crop.getLocation());
             }
         }
     }
