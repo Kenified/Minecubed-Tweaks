@@ -69,13 +69,13 @@ public class CropGrowEvent implements Listener {
         CustomBlock giantCrop;
 
         //Check if the crop is in fertile world, if not cancel the growth
-        if (!fertileWorld.equals(world.toString())){
+        if ( !fertileWorld.equals(world.getName()) ){
             event.setCancelled(true);
             return;
         }
 
         //Check if current season matches the fertile season, or if it's allowed to grow in any season
-        if (fertileSeason.equals("Any") || fertileSeason.equals(currentSeason)) {
+        if ( fertileSeason.equals("Any") || fertileSeason.equals(currentSeason) ) {
 
             //Check if the crop is fully grown
             if (ageable.getAge() != ageable.getMaximumAge() - 1) {
