@@ -35,12 +35,12 @@ public class CropGrowEvent implements Listener {
             case CARROTS:
                 handleCrop(eventBlock, "Spring", "minecubed:giant_carrot", 50, e);
                 break;
-//            case SWEET_BERRY_BUSH:
-//                handleCrop(eventBlock, "Spring", "minecubed:giant_strawberry", 50, e);
-//                break;
-//            case WHEAT:
-//                handleCrop(eventBlock, "Summer", "minecubed:giant_wheat", 50, e);
-//                break;
+            case SWEET_BERRY_BUSH:
+                handleCrop(eventBlock, "Spring", "minecubed:giant_strawberry", 50, e);
+                break;
+            case WHEAT:
+                handleCrop(eventBlock, "Summer", "minecubed:giant_wheat", 50, e);
+                break;
             case BEETROOTS:
                 handleCrop(eventBlock, "Summer", "minecubed:giant_tomato", 50, e);
                 break;
@@ -56,9 +56,9 @@ public class CropGrowEvent implements Listener {
             case COCOA:
                 handleDirectionalCrop(eventBlock, "Fall", "minecubed:giant_cocoa", 50, e);
                 break;
-//            case NETHER_WART:
-//                handleCrop(eventBlock, "Any", "minecubed:giant_wart", 50, e);
-//                break;
+            case NETHER_WART:
+                handleCrop(eventBlock, "Any", "minecubed:giant_wart", 50, e);
+                break;
         }
     }
 
