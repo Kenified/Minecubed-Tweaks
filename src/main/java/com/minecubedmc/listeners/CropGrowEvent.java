@@ -57,32 +57,35 @@ public class CropGrowEvent implements Listener {
                 handleDirectionalCrop(eventBlock, "Fall", "minecubed:giant_cocoa", 50, e);
                 break;
             case NETHER_WART:
+                //Only allow growth for wart in Nether
+                if(!eventBlock.getWorld().toString().equals("the_nether")){
+                    e.setCancelled(true);
+                    break;
+                }
                 handleCrop(eventBlock, "Any", "minecubed:giant_wart", 50, e);
                 break;
         }
     }
 
-    private void handleCrop(Block crop, String growthSeason, String customBlockID, int giantChance, BlockGrowEvent event){
+    private void handleCrop(Block crop, String growthSeason, String customBlockID, int giantChance, BlockGrowEvent event) {
         Ageable ageable = (Ageable) crop.getBlockData();
         String currentSeason = plugin.getSapi().getSeason(crop.getWorld()).toString();
 
-        //Check if current season matches the optimal season, if growth season is "Any", skip check (for nether and end)
-        if (growthSeason.equals("Any")){ /* Empty skip season check */ }
-        else if (!growthSeason.equals(currentSeason)){
-            return;
-        }
+        //Check if current season matches the optimal season, or if its allowed to grow in any season
+        if (growthSeason.equals("Any") || growthSeason.equals(currentSeason)) {
 
-        //Check if the crop is fully grown
-        if (ageable.getAge() != ageable.getMaximumAge() - 1 ){
-            return;
-        }
+            //Check if the crop is fully grown
+            if (ageable.getAge() != ageable.getMaximumAge() - 1) {
+                return;
+            }
 
-        //Chance for crop to be giant
-        if (new Random().nextInt(100) > (100 - giantChance) ){
-            CustomBlock giantCarrot = CustomBlock.getInstance(customBlockID);
+            //Chance for crop to be giant
+            if (new Random().nextInt(100) > (100 - giantChance)) {
+                CustomBlock giantCarrot = CustomBlock.getInstance(customBlockID);
 
-            event.setCancelled(true);
-            giantCarrot.place(crop.getLocation());
+                event.setCancelled(true);
+                giantCarrot.place(crop.getLocation());
+            }
         }
     }
 
@@ -91,26 +94,25 @@ public class CropGrowEvent implements Listener {
         String currentSeason = plugin.getSapi().getSeason(crop.getWorld()).toString();
 
         //Check if current season matches the optimal season, if growth season is "Any", skip check (for nether and end)
-        if (growthSeason.equals("Any")){ /* Empty skip season check */ }
-        else if (!growthSeason.equals(currentSeason)){
-            return;
-        }
+        if (growthSeason.equals("Any") || growthSeason.equals(currentSeason)) {
 
-        //Check if the crop is fully grown
-        if (ageable.getAge() != ageable.getMaximumAge() - 1 ){
-            return;
-        }
+            //Check if the crop is fully grown
+            if (ageable.getAge() != ageable.getMaximumAge() - 1 ){
+                return;
+            }
 
-        //Chance for crop to be giant
-        if (new Random().nextInt(100) > (100 - giantChance) ){
-            Directional directional = (Directional) crop.getBlockData();
-            String facing = directional.getFacing().toString().toLowerCase();
-            CustomBlock giantCocoa = CustomBlock.getInstance(customBlockID.concat("_").concat(facing));
+            //Chance for crop to be giant
+            if (new Random().nextInt(100) > (100 - giantChance) ){
+                Directional directional = (Directional) crop.getBlockData();
+                String facing = directional.getFacing().toString().toLowerCase();
+                CustomBlock giantCocoa = CustomBlock.getInstance(customBlockID.concat("_").concat(facing));
 
-            event.setCancelled(true);
-            giantCocoa.place(crop.getLocation());
+                event.setCancelled(true);
+                giantCocoa.place(crop.getLocation());
 
+            }
         }
     }
+
 }
 
