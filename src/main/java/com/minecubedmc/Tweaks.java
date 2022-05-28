@@ -33,7 +33,8 @@ public final class Tweaks extends JavaPlugin {
                         new HangingBreakByEntityListener(this),
                         new IronGolemItemDrop(this),
                         new SaplingGrowEvent(this),
-                        new CropGrowEvent(this)
+                        new CropGrowEvent(this),
+                        new PlayerItemConsumeListener(this)
                 ).
                 forEach(
                         listener -> this.getServer().getPluginManager()
