@@ -38,8 +38,7 @@ public final class Tweaks extends JavaPlugin {
                         new DirtyWaterBottle(this),
                         new PurifiedWaterCauldron(this),
                         new FillCauldronWithDirtyWater(this),
-                        new MilkBottleFromCow(this),
-                        new MilkBucketFromAnimal(this)
+                        new MilkBottleFromCow(this)
                 ).
                 forEach(
                         listener -> this.getServer().getPluginManager()
