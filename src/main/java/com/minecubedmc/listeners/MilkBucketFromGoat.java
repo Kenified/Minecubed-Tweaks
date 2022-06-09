@@ -2,7 +2,6 @@ package com.minecubedmc.listeners;
 
 
 import com.minecubedmc.Tweaks;
-import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -13,11 +12,11 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-public class MilkBottleFromCow implements Listener {
+public class MilkBucketFromGoat implements Listener {
 
     private final Tweaks plugin;
 
-    public MilkBottleFromCow(Tweaks plugin) {
+    public MilkBucketFromGoat(Tweaks plugin) {
         this.plugin = plugin;
     }
 
@@ -32,23 +31,18 @@ public class MilkBottleFromCow implements Listener {
         Player player = e.getPlayer();
         PlayerInventory inventory = player.getInventory();
         ItemStack item = inventory.getItemInMainHand();
-        if (item == null || !item.getType().equals(Material.GLASS_BOTTLE)) {
+        if (item == null || !item.getType().equals(Material.BUCKET)) {
             return;
         }
 
-        ItemStack customItem;
-        EntityType interactedEntity = e.getRightClicked().getType();
-        if (interactedEntity.equals(EntityType.COW) || interactedEntity.equals(EntityType.GOAT)){
-            customItem = CustomStack.getInstance("minecubed:milk_bottle").getItemStack();
-        }
-        else if (interactedEntity.equals(EntityType.ZOMBIE)){
-            customItem = CustomStack.getInstance("minecubed:zombie_milk").getItemStack();
-        }
-        else return;
 
+        if (!e.getRightClicked().getType().equals(EntityType.GOAT)){
+            return;
+        }
         e.setCancelled(true);
         item.subtract(1);
 
+        ItemStack customItem = new ItemStack(Material.MILK_BUCKET);
         if (inventory.addItem(customItem).size() > 0) {
             player.getWorld().dropItem(player.getLocation(), customItem);
         }
