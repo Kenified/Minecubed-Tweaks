@@ -12,11 +12,11 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-public class MilkBucketFromGoat implements Listener {
+public class MilkBucketFromAnimal implements Listener {
 
     private final Tweaks plugin;
 
-    public MilkBucketFromGoat(Tweaks plugin) {
+    public MilkBucketFromAnimal(Tweaks plugin) {
         this.plugin = plugin;
     }
 
