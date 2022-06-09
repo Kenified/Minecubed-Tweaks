@@ -17,23 +17,24 @@ import java.util.Random;
 public class CropGrowEvent implements Listener {
 
     Tweaks plugin;
-    public CropGrowEvent (Tweaks plugin){
+
+    public CropGrowEvent(Tweaks plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onCropGrow(BlockGrowEvent e){
+    public void onCropGrow(BlockGrowEvent e) {
         Block eventBlock = e.getBlock();
         Material material = eventBlock.getType();
         Material newStateMaterial = e.getNewState().getBlockData().getMaterial();
 
         //Block melon and pumpkin blocks from growing from stems
-        if (newStateMaterial.equals(Material.PUMPKIN) || newStateMaterial.equals(Material.MELON) ) {
+        if (newStateMaterial.equals(Material.PUMPKIN) || newStateMaterial.equals(Material.MELON)) {
             e.setCancelled(true);
             return;
         }
 
-        if (    material.equals(Material.CARROTS) ||
+        if (material.equals(Material.CARROTS) ||
                 material.equals(Material.SWEET_BERRY_BUSH) ||
                 material.equals(Material.WHEAT) ||
                 material.equals(Material.BEETROOTS) ||
@@ -42,8 +43,7 @@ public class CropGrowEvent implements Listener {
                 material.equals(Material.PUMPKIN_STEM) ||
                 material.equals(Material.COCOA) ||
                 material.equals(Material.NETHER_WART)
-            )
-        {
+        ) {
             handleCrop(eventBlock, material, e);
         }
     }
@@ -62,13 +62,13 @@ public class CropGrowEvent implements Listener {
         CustomBlock giantCrop;
 
         //Check if the crop is in fertile world, if not cancel the growth
-        if ( !fertileWorld.equals(world.getName()) ){
+        if (!fertileWorld.equals(world.getName())) {
             event.setCancelled(true);
             return;
         }
 
         //Check if current season matches the fertile season, or if it's allowed to grow in any season
-        if ( fertileSeason.equals("Any") || fertileSeason.equals(currentSeason) ) {
+        if (fertileSeason.equals("Any") || fertileSeason.equals(currentSeason)) {
 
             //Check if the crop is fully grown
             if (ageable.getAge() != ageable.getMaximumAge() - 1) {
@@ -76,15 +76,14 @@ public class CropGrowEvent implements Listener {
             }
 
             //Chance for crop to be giant
-            if ( new Random().nextInt(100) > (100 - chance) ) {
+            if (new Random().nextInt(100) > (100 - chance)) {
 
                 //Check if crop is directional
-                if( isDirectional ){
+                if (isDirectional) {
                     Directional directional = (Directional) crop.getBlockData();
                     String facing = directional.getFacing().toString().toLowerCase();
                     giantCrop = CustomBlock.getInstance(customBlockID.concat("_").concat(facing));
-                }
-                else{
+                } else {
                     giantCrop = CustomBlock.getInstance(customBlockID);
                 }
                 event.setCancelled(true);

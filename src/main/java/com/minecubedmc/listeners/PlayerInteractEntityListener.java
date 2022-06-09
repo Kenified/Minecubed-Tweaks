@@ -20,7 +20,6 @@ public class PlayerInteractEntityListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityInteractEvent(PlayerInteractEntityEvent event){
-//        plugin.getLogger().info("Interact Event");
         Entity entity = event.getRightClicked();
         Player player = event.getPlayer();
         EntityType entityType = entity.getType();

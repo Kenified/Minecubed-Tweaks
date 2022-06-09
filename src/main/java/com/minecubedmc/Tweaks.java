@@ -34,7 +34,11 @@ public final class Tweaks extends JavaPlugin {
                         new IronGolemItemDrop(this),
                         new SaplingGrowEvent(this),
                         new CropGrowEvent(this),
-                        new PlayerItemConsumeListener(this)
+                        new PlayerItemConsumeListener(this),
+                        new DirtyWaterBottle(this),
+                        new PurifiedWaterCauldron(this),
+                        new FillCauldronWithDirtyWater(this),
+                        new MilkBottleFromCow(this)
                 ).
                 forEach(
                         listener -> this.getServer().getPluginManager()
