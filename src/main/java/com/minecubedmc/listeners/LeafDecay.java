@@ -28,28 +28,28 @@ public class LeafDecay implements Listener {
         switch (leaf){
             case BIRCH_LEAVES:
             {
-                dropCustomItem(e, "minecubed:cherry");
+                dropCustomItem(e, "minecubed:cherry", 2);
                 break;
             }
             case MANGROVE_LEAVES:
             {
-                dropCustomItem(e, "minecubed:pitaya");
+                dropCustomItem(e, "minecubed:pitaya", 1);
                 break;
             }
             case JUNGLE_LEAVES:
             {
-                dropCustomItem(e, "minecubed:mango");
+                dropCustomItem(e, "minecubed:mango", 2);
                 break;
             }
             case ACACIA_LEAVES:
             {
-                dropCustomItem(e, "minecubed:banana");
+                dropCustomItem(e, "minecubed:banana", 2);
                 break;
             }
             case FLOWERING_AZALEA_LEAVES:
             case AZALEA_LEAVES:
             {
-                dropCustomItem(e, "minecubed:starfruit");
+                dropCustomItem(e, "minecubed:starfruit", 2);
                 break;
             }
             default:
@@ -57,10 +57,11 @@ public class LeafDecay implements Listener {
         }
     }
 
-    private void dropCustomItem(LeavesDecayEvent e, String customItemID){
+    private void dropCustomItem(LeavesDecayEvent e, String customItemID, int chance){
 
-        if ( new Random().nextInt(100) < 1 )
+        if ( new Random().nextInt(100) > chance ) {
             return;
+        }
 
         World world = e.getBlock().getWorld();
         ItemStack customItem = CustomStack.getInstance(customItemID).getItemStack();
