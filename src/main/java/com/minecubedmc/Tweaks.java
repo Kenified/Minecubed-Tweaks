@@ -41,7 +41,8 @@ public final class Tweaks extends JavaPlugin {
                         new MilkBottleFromCow(this),
                         new TreeBarkStrip(this),
                         new ChickenFeather(this),
-                        new LeafDecay(this)
+                        new LeafDecay(this),
+                        new TorchInDeepDark(this)
                 ).
                 forEach(
                         listener -> this.getServer().getPluginManager()
