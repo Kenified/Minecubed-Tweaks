@@ -39,7 +39,8 @@ public final class Tweaks extends JavaPlugin {
                         new PurifiedWaterCauldron(this),
                         new FillCauldronWithDirtyWater(this),
                         new MilkBottleFromCow(this),
-                        new TreeBarkStrip(this)
+                        new TreeBarkStrip(this),
+                        new ChickenFeather(this)
                 ).
                 forEach(
                         listener -> this.getServer().getPluginManager()

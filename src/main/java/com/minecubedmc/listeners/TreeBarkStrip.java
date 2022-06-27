@@ -40,8 +40,13 @@ public class TreeBarkStrip implements Listener {
         }
 
         //Check if item isn't null and is axe
-        String item = e.getItem().getType().toString();
-        if (item == null || !item.endsWith("_AXE")) {
+        ItemStack item = e.getItem();
+        if (item == null ) {
+            return;
+        }
+
+        String itemName = item.getType().toString();
+        if (!itemName.endsWith("_AXE")){
             return;
         }
 

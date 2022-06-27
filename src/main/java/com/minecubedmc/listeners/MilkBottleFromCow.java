@@ -4,8 +4,7 @@ package com.minecubedmc.listeners;
 import com.minecubedmc.Tweaks;
 import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -37,11 +36,11 @@ public class MilkBottleFromCow implements Listener {
         }
 
         ItemStack customItem;
-        EntityType interactedEntity = e.getRightClicked().getType();
-        if (interactedEntity.equals(EntityType.COW) || interactedEntity.equals(EntityType.GOAT)){
+        Entity interactedEntity = e.getRightClicked();
+        if (interactedEntity instanceof Cow || interactedEntity instanceof Goat){
             customItem = CustomStack.getInstance("minecubed:milk_bottle").getItemStack();
         }
-        else if (interactedEntity.equals(EntityType.ZOMBIE)){
+        else if (interactedEntity instanceof Zombie){
             customItem = CustomStack.getInstance("minecubed:zombie_milk").getItemStack();
         }
         else return;
