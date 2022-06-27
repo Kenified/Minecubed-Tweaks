@@ -1,4 +1,70 @@
 package com.minecubedmc.listeners;
 
-public class LeafDecay {
+import com.minecubedmc.Tweaks;
+import dev.lone.itemsadder.api.CustomStack;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.LeavesDecayEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Random;
+
+public class LeafDecay implements Listener {
+
+    Tweaks plugin;
+
+    public LeafDecay(Tweaks plugin){
+        this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onLeafDecay(LeavesDecayEvent e){
+        Material leaf = e.getBlock().getType();
+
+
+        switch (leaf){
+            case BIRCH_LEAVES:
+            {
+                dropCustomItem(e, "minecubed:cherry");
+                break;
+            }
+            case MANGROVE_LEAVES:
+            {
+                dropCustomItem(e, "minecubed:pitaya");
+                break;
+            }
+            case JUNGLE_LEAVES:
+            {
+                dropCustomItem(e, "minecubed:mango");
+                break;
+            }
+            case ACACIA_LEAVES:
+            {
+                dropCustomItem(e, "minecubed:banana");
+                break;
+            }
+            case FLOWERING_AZALEA_LEAVES:
+            case AZALEA_LEAVES:
+            {
+                dropCustomItem(e, "minecubed:starfruit");
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    private void dropCustomItem(LeavesDecayEvent e, String customItemID){
+
+        if ( new Random().nextInt(100) < 1 )
+            return;
+
+        World world = e.getBlock().getWorld();
+        ItemStack customItem = CustomStack.getInstance(customItemID).getItemStack();
+        world.dropItemNaturally(e.getBlock().getLocation(), customItem);
+    }
 }
+

@@ -2,8 +2,6 @@ package com.minecubedmc.listeners;
 
 import com.minecubedmc.Tweaks;
 import dev.lone.itemsadder.api.CustomStack;
-import org.bukkit.FluidCollisionMode;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +10,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
 public class TreeBarkStrip implements Listener {
 
