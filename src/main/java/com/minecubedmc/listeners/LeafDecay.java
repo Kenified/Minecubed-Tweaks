@@ -59,7 +59,7 @@ public class LeafDecay implements Listener {
 
     private void dropCustomItem(LeavesDecayEvent e, String customItemID, int chance){
 
-        if ( new Random().nextInt(100) > chance - 1 ) {
+        if ( new Random().nextInt(100) + 1 > chance ) {
             return;
         }
 

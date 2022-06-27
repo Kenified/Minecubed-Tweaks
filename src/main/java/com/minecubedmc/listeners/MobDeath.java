@@ -11,10 +11,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.IronGolem;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -41,8 +38,13 @@ public class MobDeath implements Listener {
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e){
         LivingEntity entity = e.getEntity();
-        EntityType eType = entity.getType();
 
+        //Only drop head for player kills
+        if ( !(entity.getKiller() instanceof Player)){
+            return;
+        }
+
+        EntityType eType = entity.getType();
         switch (eType){
             case ZOMBIE:
             {
@@ -78,7 +80,7 @@ public class MobDeath implements Listener {
             }
             case HUSK:
             {
-                dropCustomSkull(e, "38782",  1);
+                dropCustomSkull(e, "38782",  1.5f);
                 break;
             }
             case GHAST:
@@ -145,7 +147,7 @@ public class MobDeath implements Listener {
             case ELDER_GUARDIAN:
             case GUARDIAN:
             {
-                dropCustomSkull(e, "3136" , 4);
+                dropCustomSkull(e, "3135" , 4);
                 break;
             }
 
@@ -153,7 +155,7 @@ public class MobDeath implements Listener {
     }
 
     private void dropCustomSkull(EntityDeathEvent e, String hdbID, float chance){
-        if ( new Random().nextInt(1000) > (chance - 1) * 10 ) {
+        if ( new Random().nextInt(1000) + 1 > chance * 10 ) {
             return;
         }
 
@@ -165,9 +167,10 @@ public class MobDeath implements Listener {
     }
 
     private void dropVanillaSkull(EntityDeathEvent e, Material material, float chance){
-        if ( new Random().nextInt(1000) > (chance - 1) * 10 ) {
+        if ( new Random().nextInt(1000) + 1 > chance * 10 ) {
             return;
         }
+
         Location location = e.getEntity().getLocation();
         World world = location.getWorld();
         ItemStack item = new ItemStack(material);
