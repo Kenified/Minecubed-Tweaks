@@ -31,7 +31,7 @@ public final class Tweaks extends JavaPlugin {
                         new PlayerInteractEntityListener(this),
                         new PlayerInteractAtEntityListener(this),
                         new HangingBreakByEntityListener(this),
-                        new IronGolemItemDrop(this),
+                        new MobDeath(this),
 //                        new SaplingGrowEvent(this),
                         new CropGrowEvent(this),
                         new PlayerItemConsumeListener(this),
