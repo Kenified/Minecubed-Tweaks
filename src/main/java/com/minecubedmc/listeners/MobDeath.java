@@ -63,14 +63,14 @@ public class MobDeath implements Listener {
             }
             case BLAZE:
             {
-                dropCustomSkull(e, "332",  2);
+                dropCustomSkull(e, "47778",  2);
                 break;
             }
             case IRON_GOLEM:
             {
                 ItemStack ironScrap = CustomStack.getInstance("minecubed:iron_scrap").getItemStack();
                 entity.getLocation().getWorld().dropItem(entity.getLocation(), ironScrap);
-                dropCustomSkull(e, "45422",  25);
+                dropCustomSkull(e, "45422",  10);
                 break;
             }
             case ZOMBIE_VILLAGER:
@@ -85,7 +85,7 @@ public class MobDeath implements Listener {
             }
             case GHAST:
             {
-                dropCustomSkull(e, "40638",  15);
+                dropCustomSkull(e, "40638",  10);
                 break;
             }
             case ENDERMAN:
@@ -150,7 +150,9 @@ public class MobDeath implements Listener {
                 dropCustomSkull(e, "3135" , 4);
                 break;
             }
-
+            case SQUID:
+                dropCustomSkull(e, "20119" , 8);
+                break;
         }
     }
 

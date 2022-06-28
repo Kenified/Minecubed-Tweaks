@@ -42,7 +42,8 @@ public final class Tweaks extends JavaPlugin {
                         new TreeBarkStrip(this),
                         new ChickenFeather(this),
                         new LeafDecay(this),
-                        new TorchInDeepDark(this)
+                        new TorchInDeepDark(this),
+                        new NoXPDrop(this)
                 ).
                 forEach(
                         listener -> this.getServer().getPluginManager()
