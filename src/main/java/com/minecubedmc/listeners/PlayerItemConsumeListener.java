@@ -34,16 +34,17 @@ public class PlayerItemConsumeListener implements Listener {
         if(CustomStack.byItemStack(eventFood) != null){
             return;
         }
-
-        switch (eventFood.getType()){
+        Material foodType = eventFood.getType() ;
+        switch (foodType){
             case POTATO:
             case CHICKEN:
             case BEEF:
             case PORKCHOP:
             case RABBIT:
+            case ROTTEN_FLESH:
             case MUTTON:
                 e.setCancelled(true);
-                eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0, true ));
+                eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0, true ));
                 handleFood(eventPlayer, eventFood, 1, 0.6f, null);
                 break;
             case BAKED_POTATO:
@@ -55,11 +56,19 @@ public class PlayerItemConsumeListener implements Listener {
                 handleFood(eventPlayer, eventFood, 1, 1.9f, null);
                 break;
             case BEETROOT:
+            case CHORUS_FRUIT:
                 e.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 2, 2.4f, null);
                 break;
             case MELON:
+            case SALMON:
+            case DRIED_KELP:
+            case COD:
+            case POISONOUS_POTATO:
+            case SPIDER_EYE:
                 e.setCancelled(true);
+                eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0, true ));
+                eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0, true ));
                 handleFood(eventPlayer, eventFood, 1, 0.6f, null);
                 break;
             case GLOW_BERRIES:
@@ -119,6 +128,55 @@ public class PlayerItemConsumeListener implements Listener {
             case MILK_BUCKET:
                 e.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 0, 0f, new ItemStack(Material.BUCKET));
+                break;
+            case APPLE:
+                e.setCancelled(true);
+                handleFood(eventPlayer, eventFood, 2, 2.6f, null);
+                break;
+            case COOKED_SALMON:
+                e.setCancelled(true);
+                handleFood(eventPlayer, eventFood, 3, 4, null);
+                break;
+            case COOKED_COD:
+                e.setCancelled(true);
+                handleFood(eventPlayer, eventFood, 3, 3, null);
+                break;
+            case TROPICAL_FISH:
+                e.setCancelled(true);
+                handleFood(eventPlayer, eventFood, 1, 0.6f, null);
+                break;
+            case PUMPKIN_PIE:
+                handleFood(eventPlayer, eventFood, 7, 7.1f, null);
+                break;
+            case PUFFERFISH:
+            case CAKE:
+            case CANDLE_CAKE:
+            case BLACK_CANDLE_CAKE:
+            case BLUE_CANDLE_CAKE:
+            case BROWN_CANDLE_CAKE:
+            case CYAN_CANDLE_CAKE:
+            case GRAY_CANDLE_CAKE:
+            case GREEN_CANDLE_CAKE:
+            case LIGHT_BLUE_CANDLE_CAKE:
+            case LIGHT_GRAY_CANDLE_CAKE:
+            case LIME_CANDLE_CAKE:
+            case MAGENTA_CANDLE_CAKE:
+            case ORANGE_CANDLE_CAKE:
+            case PINK_CANDLE_CAKE:
+            case PURPLE_CANDLE_CAKE:
+            case RED_CANDLE_CAKE:
+            case WHITE_CANDLE_CAKE:
+            case YELLOW_CANDLE_CAKE:
+                break;
+            case RABBIT_STEW:
+            case BEETROOT_SOUP:
+            case SUSPICIOUS_STEW:
+            case MUSHROOM_STEW:
+                e.setCancelled(true);
+                break;
+            default:
+                plugin.getLogger().warning("You missed one ken -.- dumbass " + foodType);
+                e.setCancelled(true);
                 break;
         }
     }
