@@ -119,6 +119,11 @@ public class MobDeath implements Listener {
                 dropCustomSkull(e, "22210",  2);
                 break;
             }
+            case MAGMA_CUBE:
+            {
+                dropCustomSkull(e, "323",  2);
+                break;
+            }
             case SNOWMAN:
             {
                 dropCustomSkull(e, "24080", 10);
@@ -150,6 +155,9 @@ public class MobDeath implements Listener {
                 dropCustomSkull(e, "3135" , 4);
                 break;
             }
+            case GLOW_SQUID:
+                dropCustomSkull(e, "42563" , 8);
+                break;
             case SQUID:
                 dropCustomSkull(e, "20119" , 8);
                 break;

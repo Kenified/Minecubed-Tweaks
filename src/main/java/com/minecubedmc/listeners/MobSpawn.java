@@ -11,6 +11,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
+
 public class MobSpawn implements Listener {
 
     Tweaks plugin;
@@ -24,7 +25,7 @@ public class MobSpawn implements Listener {
         Location loc = e.getLocation();
         World world = e.getLocation().getWorld();
         String biome = world.getBiome(loc).toString();
-
+        plugin.getLogger().warning(biome);
         if (e.getEntity() instanceof Zombie && biome.equals("minecubed:sandy_catacombs") && e.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)){
             e.setCancelled(true);
             world.spawnEntity(loc, EntityType.HUSK, CreatureSpawnEvent.SpawnReason.NATURAL);
