@@ -39,6 +39,11 @@ public class MobDeath implements Listener {
     public void onEntityDeath(EntityDeathEvent e){
         LivingEntity entity = e.getEntity();
 
+        if (entity instanceof IronGolem){
+            ItemStack ironScrap = CustomStack.getInstance("minecubed:iron_scrap").getItemStack();
+            entity.getLocation().getWorld().dropItem(entity.getLocation(), ironScrap);
+        }
+
         //Only drop head for player kills
         if ( !(entity.getKiller() instanceof Player)){
             return;
@@ -68,8 +73,6 @@ public class MobDeath implements Listener {
             }
             case IRON_GOLEM:
             {
-                ItemStack ironScrap = CustomStack.getInstance("minecubed:iron_scrap").getItemStack();
-                entity.getLocation().getWorld().dropItem(entity.getLocation(), ironScrap);
                 dropCustomSkull(e, "45422",  10);
                 break;
             }

@@ -43,7 +43,8 @@ public final class Tweaks extends JavaPlugin {
                         new ChickenFeather(this),
                         new LeafDecay(this),
                         new TorchInDeepDark(this),
-//                        new MobSpawn(this),
+                        new MobSpawn(this),
+                        new FoodDrain(this),
                         new NoXPDrop(this)
                 ).
                 forEach(

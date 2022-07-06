@@ -35,7 +35,7 @@ public class CropGrowEvent implements Listener {
         }
 
         if (material.equals(Material.CARROTS) ||
-                material.equals(Material.SWEET_BERRY_BUSH) ||
+//                material.equals(Material.SWEET_BERRY_BUSH) ||
                 material.equals(Material.WHEAT) ||
                 material.equals(Material.BEETROOTS) ||
                 material.equals(Material.MELON_STEM) ||

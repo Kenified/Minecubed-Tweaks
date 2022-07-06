@@ -2,62 +2,62 @@ crops:
   CARROTS:
     fertile-world: "world"
     fertile-season: "Spring"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_carrot"
     directional: false
 
   SWEET_BERRY_BUSH:
     fertile-world: "world"
     fertile-season: "Spring"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_strawberry"
     directional: false
 
   WHEAT:
     fertile-world: "world"
     fertile-season: "Summer"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_wheat"
     directional: false
 
   BEETROOTS:
     fertile-world: "world"
     fertile-season: "Summer"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_tomato"
     directional: false
 
   MELON_STEM:
     fertile-world: "world"
     fertile-season: "Spring"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_melon"
     directional: Summer
 
   POTATOES:
     fertile-world: "world"
     fertile-season: "Fall"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_potato"
     directional: false
 
   PUMPKIN_STEM:
     fertile-world: "world"
     fertile-season: "Fall"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_pumpkin"
     directional: false
 
   COCOA:
     fertile-world: "world"
     fertile-season: "Fall"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_cocoa"
     directional: true
 
   NETHER_WART:
     fertile-world: "world_nether"
     fertile-season: "Any"
-    giant-crop-chance: 50
+    giant-crop-chance: 5
     giant-crop-id: "minecubed:giant_wart"
     directional: false

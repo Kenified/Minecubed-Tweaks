@@ -5,6 +5,7 @@ import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
@@ -20,20 +21,17 @@ public class PlayerItemConsumeListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerConsume(PlayerItemConsumeEvent e){
+
         ItemStack eventFood = e.getItem();
         Player eventPlayer = e.getPlayer();
-
-        //Cap Saturation for custom foods to follow vanilla logic
-        if (eventPlayer.getSaturation() > eventPlayer.getFoodLevel()){
-            eventPlayer.setSaturation(eventPlayer.getFoodLevel());
-        }
 
         //Check if it's not a custom item
         if(CustomStack.byItemStack(eventFood) != null){
             return;
         }
+
         Material foodType = eventFood.getType() ;
         switch (foodType){
             case POTATO:
@@ -71,6 +69,7 @@ public class PlayerItemConsumeListener implements Listener {
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0, true ));
                 handleFood(eventPlayer, eventFood, 1, 0.6f, null);
                 break;
+            case SWEET_BERRIES:
             case GLOW_BERRIES:
                 e.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 1, 1f, null);
@@ -146,6 +145,7 @@ public class PlayerItemConsumeListener implements Listener {
                 handleFood(eventPlayer, eventFood, 1, 0.6f, null);
                 break;
             case PUMPKIN_PIE:
+                e.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 7, 7.1f, null);
                 break;
             case PUFFERFISH:
@@ -167,6 +167,7 @@ public class PlayerItemConsumeListener implements Listener {
             case RED_CANDLE_CAKE:
             case WHITE_CANDLE_CAKE:
             case YELLOW_CANDLE_CAKE:
+            case POTION:
                 break;
             case RABBIT_STEW:
             case BEETROOT_SOUP:
@@ -178,6 +179,8 @@ public class PlayerItemConsumeListener implements Listener {
                 plugin.getLogger().warning("You missed one ken -.- dumbass " + foodType);
                 e.setCancelled(true);
                 break;
+
+
         }
     }
 
@@ -187,25 +190,19 @@ public class PlayerItemConsumeListener implements Listener {
         int playerFoodLevel = player.getFoodLevel();
 
         playerFoodLevel += foodHunger;
-        playerSaturation += foodSaturation;
-
         //Cap Food level at 20
         if (playerFoodLevel > 20 ) {
             playerFoodLevel = 20;
         }
-        else{   //Only give saturation if food is below 20
-            playerSaturation += foodSaturation;
+        player.setFoodLevel(playerFoodLevel);
 
-            //Saturation level cannot be higher than current food level
-            if (playerSaturation > playerFoodLevel){
-                playerSaturation = playerFoodLevel;
-            }
-
-            player.setSaturation(playerSaturation);
+        playerSaturation += foodSaturation;
+        //Saturation level cannot be higher than current food level
+        if (playerSaturation > playerFoodLevel){
+            playerSaturation = playerFoodLevel;
         }
 
-
-        player.setFoodLevel(playerFoodLevel);
+        player.setSaturation(playerSaturation);
 
         if (inventory.getItemInMainHand().equals(food)){
             inventory.getItemInMainHand().subtract(1);
