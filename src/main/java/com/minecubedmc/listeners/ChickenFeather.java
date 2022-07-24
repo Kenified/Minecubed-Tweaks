@@ -47,9 +47,14 @@ public class ChickenFeather implements Listener {
         double health = ((Chicken) entity).getHealth();
         double maxHealth = ((Chicken) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
 
-        if (health < maxHealth){
-            ((Chicken) entity).setHealth(health + 1);
+        //Fix error 'Health must be between 0 and 4.0, but was 4.924400329589844'
+        if (health > 3 && health < maxHealth){
+            ((Chicken) entity).setHealth(maxHealth);
         }
+        else if (health < maxHealth){
+            ((Chicken) entity).setHealth(Math.min(health + 1, maxHealth));
+        }
+
         world.dropItemNaturally(location, drop);
     }
 
