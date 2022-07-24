@@ -13,11 +13,11 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class PlayerItemConsumeListener implements Listener {
+public class PlayerEat implements Listener {
 
     Tweaks plugin;
 
-    public PlayerItemConsumeListener(Tweaks plugin){
+    public PlayerEat(Tweaks plugin){
         this.plugin = plugin;
     }
 
@@ -58,10 +58,14 @@ public class PlayerItemConsumeListener implements Listener {
                 e.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 2, 2.4f, null);
                 break;
-            case MELON:
             case SALMON:
             case DRIED_KELP:
             case COD:
+            case MELON_SLICE:
+            case TROPICAL_FISH:
+                e.setCancelled(true);
+                handleFood(eventPlayer, eventFood, 1, 0.6f, null);
+                break;
             case POISONOUS_POTATO:
             case SPIDER_EYE:
                 e.setCancelled(true);
@@ -139,10 +143,6 @@ public class PlayerItemConsumeListener implements Listener {
             case COOKED_COD:
                 e.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 3, 3, null);
-                break;
-            case TROPICAL_FISH:
-                e.setCancelled(true);
-                handleFood(eventPlayer, eventFood, 1, 0.6f, null);
                 break;
             case PUMPKIN_PIE:
                 e.setCancelled(true);
