@@ -3,5 +3,6 @@ version: '${project.version}'
 main: com.minecubedmc.Tweaks
 api-version: 1.18
 depend: [ItemsAdder, RealisticSeasons, HeadDatabase ]
+load: POSTWORLD
 authors: [ Kenified ]
 description: Random assortment of tweaks for Minecubed server

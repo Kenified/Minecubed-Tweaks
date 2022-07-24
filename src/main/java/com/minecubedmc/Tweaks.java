@@ -34,7 +34,7 @@ public final class Tweaks extends JavaPlugin {
                         new MobDeath(this),
 //                        new SaplingGrowEvent(this),
                         new CropGrowEvent(this),
-                        new PlayerItemConsumeListener(this),
+                        new PlayerEat(this),
                         new DirtyWaterBottle(this),
                         new PurifiedWaterCauldron(this),
                         new FillCauldronWithDirtyWater(this),
@@ -45,7 +45,10 @@ public final class Tweaks extends JavaPlugin {
                         new TorchInDeepDark(this),
                         new MobSpawn(this),
                         new FoodDrain(this),
-                        new NoXPDrop(this)
+                        new NoXPDrop(this),
+                        new FixIABottleBug(this),
+                        new BlockBarrierPlacement(this),
+                        new SquidFallDamage(this)
                 ).
                 forEach(
                         listener -> this.getServer().getPluginManager()
