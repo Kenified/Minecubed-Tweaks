@@ -1,6 +1,5 @@
-package com.minecubedmc.listeners;
+package com.minecubedmc.features;
 
-import com.minecubedmc.Tweaks;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -8,18 +7,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class TorchInDeepDark implements Listener {
-
-    Tweaks plugin;
-
-    public TorchInDeepDark(Tweaks plugin){
-        this.plugin = plugin;
-    }
+public class NoTorchesInDeepDark implements Listener {
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e){
-        Block block = e.getBlock();
-        Material type = block.getType();
+    public void onBlockPlace(final BlockPlaceEvent event){
+        final Block block = event.getBlock();
+        final Material type = block.getType();
 
         if (
                 type.equals(Material.TORCH) ||
@@ -31,7 +24,7 @@ public class TorchInDeepDark implements Listener {
             String biome = block.getWorld().getBiome(loc).toString();
 
             if (biome.equals("DEEP_DARK"))
-                e.setCancelled(true);
+                event.setCancelled(true);
         }
     }
 }

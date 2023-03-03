@@ -1,21 +1,16 @@
-package com.minecubedmc.listeners;
+package com.minecubedmc.features;
 
-import com.minecubedmc.Tweaks;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
-public class FoodDrain implements Listener {
-
-    public Tweaks plugin;
-
-    public FoodDrain(Tweaks plugin) { this.plugin = plugin; }
+public class LimitFoodLevel implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onFoodLevelChange(FoodLevelChangeEvent e){
-        HumanEntity player = e.getEntity();
+    public void onFoodLevelChange(final FoodLevelChangeEvent event){
+        final HumanEntity player = event.getEntity();
 
         //Cap Saturation and hunger for custom foods to follow vanilla logic
         if (player.getFoodLevel() > 20){

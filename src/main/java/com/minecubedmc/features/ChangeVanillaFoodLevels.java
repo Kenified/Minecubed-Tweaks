@@ -1,4 +1,4 @@
-package com.minecubedmc.listeners;
+package com.minecubedmc.features;
 
 import com.minecubedmc.Tweaks;
 import dev.lone.itemsadder.api.CustomStack;
@@ -13,19 +13,18 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class PlayerEat implements Listener {
+public class ChangeVanillaFoodLevels implements Listener {
 
     Tweaks plugin;
 
-    public PlayerEat(Tweaks plugin){
+    public ChangeVanillaFoodLevels(final Tweaks plugin){
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onPlayerConsume(PlayerItemConsumeEvent e){
-
-        ItemStack eventFood = e.getItem();
-        Player eventPlayer = e.getPlayer();
+    public void onPlayerConsume(final PlayerItemConsumeEvent event) {
+        final ItemStack eventFood = event.getItem();
+        final Player eventPlayer = event.getPlayer();
 
         //Check if it's not a custom item
         if(CustomStack.byItemStack(eventFood) != null){
@@ -41,21 +40,21 @@ public class PlayerEat implements Listener {
             case RABBIT:
             case ROTTEN_FLESH:
             case MUTTON:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 600, 0, true ));
                 handleFood(eventPlayer, eventFood, 1, 0.6f, null);
                 break;
             case BAKED_POTATO:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 3, 1.9f, null);
                 break;
             case CARROT:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 1, 1.9f, null);
                 break;
             case BEETROOT:
             case CHORUS_FRUIT:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 2, 2.4f, null);
                 break;
             case SALMON:
@@ -63,61 +62,61 @@ public class PlayerEat implements Listener {
             case COD:
             case MELON_SLICE:
             case TROPICAL_FISH:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 1, 0.6f, null);
                 break;
             case POISONOUS_POTATO:
             case SPIDER_EYE:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 0, true ));
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0, true ));
                 handleFood(eventPlayer, eventFood, 1, 0.6f, null);
                 break;
             case SWEET_BERRIES:
             case GLOW_BERRIES:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 1, 1f, null);
                 break;
             case COOKIE:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 2, 1f, null);
                 break;
             case COOKED_CHICKEN:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 4, 2.6f, null);
                 break;
             case COOKED_BEEF:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 4, 3.5f, null);
                 break;
             case COOKED_PORKCHOP:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 4, 4f, null);
                 break;
             case COOKED_RABBIT:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 4, 7.2f, null);
                 break;
             case COOKED_MUTTON:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 4, 6f, null);
                 break;
             case BREAD:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 3, 2.6f, null);
                 break;
             case GOLDEN_CARROT:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 4, 7.1f, null);
                 break;
             case GOLDEN_APPLE:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1, true ));
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 0, true ));
                 handleFood(eventPlayer, eventFood, 5, 2.6f, null);
                 break;
             case ENCHANTED_GOLDEN_APPLE:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400, 1, true ));
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 3, true ));
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 6000, 0, true ));
@@ -125,27 +124,27 @@ public class PlayerEat implements Listener {
                 handleFood(eventPlayer, eventFood, 12, 12.1f, null);
                 break;
             case HONEY_BOTTLE:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 3, 3f, new ItemStack(Material.GLASS_BOTTLE));
                 break;
             case MILK_BUCKET:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 0, 0f, new ItemStack(Material.BUCKET));
                 break;
             case APPLE:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 2, 2.6f, null);
                 break;
             case COOKED_SALMON:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 3, 4, null);
                 break;
             case COOKED_COD:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 3, 3, null);
                 break;
             case PUMPKIN_PIE:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 handleFood(eventPlayer, eventFood, 7, 7.1f, null);
                 break;
             case PUFFERFISH:
@@ -173,19 +172,19 @@ public class PlayerEat implements Listener {
             case BEETROOT_SOUP:
             case SUSPICIOUS_STEW:
             case MUSHROOM_STEW:
-                e.setCancelled(true);
+                event.setCancelled(true);
                 break;
             default:
                 plugin.getLogger().warning("You missed one ken -.- dumbass " + foodType);
-                e.setCancelled(true);
+                event.setCancelled(true);
                 break;
 
 
         }
     }
 
-    private void handleFood(Player player, ItemStack food, int foodHunger, float foodSaturation, ItemStack returnItem){
-        PlayerInventory inventory = player.getInventory();
+    private void handleFood(final Player player, final ItemStack food, final int foodHunger, final float foodSaturation, final ItemStack returnItem){
+        final PlayerInventory inventory = player.getInventory();
         float playerSaturation = player.getSaturation();
         int playerFoodLevel = player.getFoodLevel();
 

@@ -1,6 +1,5 @@
-package com.minecubedmc.listeners;
+package com.minecubedmc.features;
 
-import com.minecubedmc.Tweaks;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -9,18 +8,14 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class NoXPDrop implements Listener {
 
-    private final Tweaks plugin;
-
-    public NoXPDrop(Tweaks plugin){
-        this.plugin = plugin;
-    }
-
     @EventHandler
-    public void blockBreakListener(BlockBreakEvent e){
-        Block block = e.getBlock();
+    public void blockBreakListener(final BlockBreakEvent event){
+        if (event.isCancelled()) return;
+    
+        final Block block = event.getBlock();
 
         if (block.getType().equals(Material.DEEPSLATE_EMERALD_ORE)){
-            e.setExpToDrop(0);
+            event.setExpToDrop(0);
         }
     }
 

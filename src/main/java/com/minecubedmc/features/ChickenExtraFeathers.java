@@ -1,4 +1,4 @@
-package com.minecubedmc.listeners;
+package com.minecubedmc.features;
 
 
 import com.minecubedmc.Tweaks;
@@ -17,35 +17,37 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
 
-public class ChickenFeather implements Listener {
 
-    private final Tweaks plugin;
-
-    public ChickenFeather(Tweaks plugin) {
-        this.plugin = plugin;
-    }
+public class ChickenExtraFeathers implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onEggDrop(EntityDropItemEvent e) {
+    public void onEggDrop(final EntityDropItemEvent event) {
         //Check if entity is chicken
-        Entity entity = e.getEntity();
+        final Entity entity = event.getEntity();
         if (!(entity instanceof Chicken)) {
+            return;
+        }
+    
+        final Collection<Player> players = event.getEntity().getLocation().getNearbyPlayers((event.getEntity().getWorld().getSimulationDistance() * 16) + 8 );
+        if (players.stream().allMatch(player -> Tweaks.getEssentials().getUser(player).isAfk())) {
+            event.setCancelled(true);
             return;
         }
 
         //Check if dropped item is egg
-        ItemStack eDrop = e.getItemDrop().getItemStack();
+        final ItemStack eDrop = event.getItemDrop().getItemStack();
         if(!eDrop.getType().equals(Material.EGG)) {
             return;
         }
-
-        World world = entity.getWorld();
-        Location location = entity.getLocation();
-        ItemStack drop = new ItemStack(Material.FEATHER);
-
-        double health = ((Chicken) entity).getHealth();
-        double maxHealth = ((Chicken) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
+    
+        final World world = entity.getWorld();
+        final Location location = entity.getLocation();
+        final ItemStack drop = new ItemStack(Material.FEATHER);
+    
+        final double health = ((Chicken) entity).getHealth();
+        final double maxHealth = ((Chicken) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
 
         //Fix error 'Health must be between 0 and 4.0, but was 4.924400329589844'
         if (health > 3 && health < maxHealth){
@@ -59,20 +61,20 @@ public class ChickenFeather implements Listener {
     }
 
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEntityEvent e) {
+    public void onPlayerInteract(final PlayerInteractEntityEvent e) {
         if (e.getHand() != EquipmentSlot.HAND){
             return;
         }
-
-        Player player = e.getPlayer();
-        Entity entity = e.getRightClicked();
+    
+        final Player player = e.getPlayer();
+        final Entity entity = e.getRightClicked();
 
         if (entity instanceof Chicken && player.isSneaking()){
-            World world = entity.getWorld();
-            Location location = entity.getLocation();
-            ItemStack drop = new ItemStack(Material.FEATHER);
-
-            double health = ((Chicken) entity).getHealth();
+            final World world = entity.getWorld();
+            final Location location = entity.getLocation();
+            final ItemStack drop = new ItemStack(Material.FEATHER);
+    
+            final double health = ((Chicken) entity).getHealth();
 
             if (health > 1){
                 ((Chicken) entity).damage(0);
