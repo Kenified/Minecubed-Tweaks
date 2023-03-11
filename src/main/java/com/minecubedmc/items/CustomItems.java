@@ -6,13 +6,13 @@ import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomItems {
     
-    private static final HashMap<String, ItemStack> ItemCache = new HashMap<>();
-    private static final HashMap<String, CustomBlock> BlockCache = new HashMap<>();
-    private static final HashMap<Integer, ItemStack> HDBCache = new HashMap<>();
+    private static final ConcurrentHashMap<String, ItemStack> ItemCache = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, CustomBlock> BlockCache = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Integer, ItemStack> HDBCache = new ConcurrentHashMap<>();
     private static final ItemStack DEFAULT_ITEM = new ItemStack(Material.AIR);
     private static final CustomBlock DEFAULT_BLOCK = null;
     
@@ -32,12 +32,10 @@ public class CustomItems {
                     );
                 }
                 else customItem = CustomStack.getInstance(ID).getItemStack();
-//                Tweaks.getPlugin(Tweaks.class).getLogger().info("Added item to cache: " + customItem);
             }
             ItemCache.put(ID, customItem);
         }
     
-//        Tweaks.getPlugin(Tweaks.class).getLogger().info(ItemCache.toString());
         return customItem;
     }
     
