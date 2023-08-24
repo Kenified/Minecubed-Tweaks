@@ -1,7 +1,6 @@
 package com.minecubedmc.features;
 
 import com.minecubedmc.Tweaks;
-import com.minecubedmc.util.Cache;
 import com.minecubedmc.items.CustomTripwireBlock;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -76,19 +75,18 @@ public class GiantCrops implements Listener {
         
         if (fertileSeason.equals("Any") || fertileSeason.equals(currentSeason)) {
             Ageable ageable = (Ageable) crop.getBlockData();
-//            CustomBlock giantCrop = null;
-            CustomTripwireBlock giantCrop = null;
+            CustomTripwireBlock giantCrop;
             
             int newAge = ((Ageable) event.getNewState().getBlockData()).getAge();
             if ( type.equals(Material.CARROTS) && ageable.getAge() == 2 && newAge == 3) {
                 if (new Random().nextInt(100) > (100 - 5)) {
-                    giantCrop = Cache.getCustomBlock("minecubed:giant_lettuce");
+                    giantCrop = CustomTripwireBlockSystem.getCustomBlock("minecubed:giant_lettuce");
                 }
                 else return;
             }
             else if ( type.equals(Material.POTATOES) && ageable.getAge() == 2 && newAge == 3) {
                 if (new Random().nextInt(100) > (100 - 5)) {
-                    giantCrop = Cache.getCustomBlock("minecubed:giant_onion");
+                    giantCrop = CustomTripwireBlockSystem.getCustomBlock("minecubed:giant_onion");
                 }
                 else return;
             }
@@ -108,9 +106,9 @@ public class GiantCrops implements Listener {
                     if (isDirectional) {
                         Directional directional = (Directional) crop.getBlockData();
                         String facing = directional.getFacing().toString().toLowerCase();
-                        giantCrop = Cache.getCustomBlock(customBlockID.concat("_").concat(facing));
+                        giantCrop = CustomTripwireBlockSystem.getCustomBlock(customBlockID.concat("_").concat(facing));
                     } else {
-                        giantCrop = Cache.getCustomBlock(customBlockID);
+                        giantCrop = CustomTripwireBlockSystem.getCustomBlock(customBlockID);
                     }
                 }
 //            //WIP

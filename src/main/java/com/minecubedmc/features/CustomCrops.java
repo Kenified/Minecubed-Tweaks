@@ -53,13 +53,13 @@ public class CustomCrops implements Listener {
             int cropAge = ((Ageable) crop.getBlockData()).getAge();
             if (cropAge ==  2){
                 event.setCancelled(true);
-                Cache.getCustomBlock("minecubed:grown_eggplant").place(crop.getLocation());
+                CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_eggplant").place(crop.getLocation());
             }
         }else if (cropType.equals(Material.PUMPKIN_STEM)) {
             int cropAge = ((Ageable) crop.getBlockData()).getAge();
             if (cropAge ==  2){
                 event.setCancelled(true);
-                Cache.getCustomBlock("minecubed:grown_corn").place(crop.getLocation());
+                CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_corn").place(crop.getLocation());
             }
         }
     }
@@ -149,7 +149,7 @@ public class CustomCrops implements Listener {
                     xpAmount = sourceManager.getXp(FarmingSource.CARROT);
                 } else if (type.equals(Material.POTATOES)) { // Onion
                     xpAmount = sourceManager.getXp(FarmingSource.POTATO);
-                } else if (Cache.getCustomBlock("minecubed:grown_eggplant").getBlockData() == block.getBlockData() || Cache.getCustomBlock("minecubed:grown_corn").getBlockData() == block.getBlockData()) { //Eggplant && Corn
+                } else if (CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_eggplant").getBlockData() == block.getBlockData() || CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_corn").getBlockData() == block.getBlockData()) { //Eggplant && Corn
                     xpAmount = sourceManager.getXp(FarmingSource.BEETROOT);
                 }
     
@@ -198,7 +198,7 @@ public class CustomCrops implements Listener {
             if ( (cropAge < 2 && newCropAge > 2) || cropAge ==  3 ) {
                 // Set the new block
                 event.setCancelled(true);
-                Cache.getCustomBlock("minecubed:grown_eggplant").place(crop.getLocation());
+                CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_eggplant").place(crop.getLocation());
             }
         } else if (cropType.equals(Material.PUMPKIN_STEM)) {
             cropAge = ((Ageable) crop.getBlockData()).getAge();
@@ -207,7 +207,7 @@ public class CustomCrops implements Listener {
             if ( (cropAge < 2 && newCropAge > 2) || cropAge ==  3) {
                 // Set the new block
                 event.setCancelled(true);
-                Cache.getCustomBlock("minecubed:grown_corn").place(crop.getLocation());
+                CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_corn").place(crop.getLocation());
             }
         }
     }

@@ -47,6 +47,7 @@ public final class Tweaks extends JavaPlugin implements Listener{
         saveDefaultConfig();
         this.registerListeners();
         this.registerCommands();
+        CustomTripwireBlockSystem.seedBlocks();
     
         //Sync world time with overworld
         if (Arrays.stream(worldsList)
