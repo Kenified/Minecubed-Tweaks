@@ -1,20 +1,21 @@
-package com.minecubedmc.items;
+package com.minecubedmc.util;
 
 import com.minecubedmc.Tweaks;
-import dev.lone.itemsadder.api.CustomBlock;
+import com.minecubedmc.items.CustomTripwireBlock;
 import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class CustomItems {
+public class Cache {
     
     private static final ConcurrentHashMap<String, ItemStack> ItemCache = new ConcurrentHashMap<>();
-    private static final ConcurrentHashMap<String, CustomBlock> BlockCache = new ConcurrentHashMap<>();
+//    private static final ConcurrentHashMap<String, CustomBlock> BlockCache = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, CustomTripwireBlock> CustomTripwireBlocks = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<Integer, ItemStack> HDBCache = new ConcurrentHashMap<>();
     private static final ItemStack DEFAULT_ITEM = new ItemStack(Material.AIR);
-    private static final CustomBlock DEFAULT_BLOCK = null;
+//    private static final CustomBlock DEFAULT_BLOCK = null;
     
     public static ItemStack getCustomItem(final String ID) {
         ItemStack customItem = ItemCache.getOrDefault(ID, DEFAULT_ITEM);
@@ -39,19 +40,34 @@ public class CustomItems {
         return customItem;
     }
     
-    public static CustomBlock getCustomBlock(final String ID) {
-        CustomBlock customBlock =  BlockCache.getOrDefault(ID, DEFAULT_BLOCK);
-        
-        // Fetch the item and add it to cache if not found
-        if (customBlock == DEFAULT_BLOCK){
-            if (Tweaks.isIALoaded()) {
-                customBlock = CustomBlock.getInstance(ID);
-                BlockCache.put(ID, customBlock);
-            }
-        }
+//    public static CustomBlock getCustomBlock(final String ID) {
+//        CustomBlock customBlock =  BlockCache.getOrDefault(ID, DEFAULT_BLOCK);
+//
+//        // Fetch the item and add it to cache if not found
+//        if (customBlock == DEFAULT_BLOCK){
+//            if (Tweaks.isIALoaded()) {
+//                customBlock = CustomBlock.getInstance(ID);
+//                BlockCache.put(ID, customBlock);
+//            }
+//        }
+//
+//        return customBlock;
+//    }
     
+    public static CustomTripwireBlock getCustomBlock(final String ID){
+        CustomTripwireBlock customBlock = CustomTripwireBlocks.get(ID);
+        
+        if (customBlock == null){
+            //Seed the blocks
+            CustomTripwireBlock.seedBlocks(CustomTripwireBlocks);
+            
+            //Get the block
+            customBlock = CustomTripwireBlocks.get(ID);
+        }
+        
         return customBlock;
     }
+    
     public static ItemStack getHeadItem(final int ID) {
         ItemStack headItem = HDBCache.get(ID);
     
@@ -63,4 +79,8 @@ public class CustomItems {
         
         return headItem;
     }
+    
+    
+    
+    
 }

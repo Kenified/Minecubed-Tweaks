@@ -1,6 +1,6 @@
 package com.minecubedmc.features;
 
-import com.minecubedmc.items.CustomItems;
+import com.minecubedmc.util.Cache;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -63,8 +63,8 @@ public class DirtyWaterBottle implements Listener {
 //
 //                }
 //            } else {
-                if (inventory.addItem(CustomItems.getCustomItem("minecubed:water_bottle")).size() > 0) {
-                    player.getWorld().dropItem(player.getLocation(), CustomItems.getCustomItem("minecubed:water_bottle"));
+                if (inventory.addItem(Cache.getCustomItem("minecubed:water_bottle")).size() > 0) {
+                    player.getWorld().dropItem(player.getLocation(), Cache.getCustomItem("minecubed:water_bottle"));
 
                 }
 //            }

@@ -5,7 +5,8 @@ import com.archyx.aureliumskills.skills.Skills;
 import com.archyx.aureliumskills.skills.farming.FarmingSource;
 import com.archyx.aureliumskills.source.SourceManager;
 import com.minecubedmc.Tweaks;
-import com.minecubedmc.items.CustomItems;
+import com.minecubedmc.util.Cache;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -52,38 +53,36 @@ public class CustomCrops implements Listener {
             int cropAge = ((Ageable) crop.getBlockData()).getAge();
             if (cropAge ==  2){
                 event.setCancelled(true);
-                CustomItems.getCustomBlock("minecubed:grown_eggplant").place(crop.getLocation());
+                Cache.getCustomBlock("minecubed:grown_eggplant").place(crop.getLocation());
             }
         }else if (cropType.equals(Material.PUMPKIN_STEM)) {
             int cropAge = ((Ageable) crop.getBlockData()).getAge();
             if (cropAge ==  2){
                 event.setCancelled(true);
-                CustomItems.getCustomBlock("minecubed:grown_corn").place(crop.getLocation());
+                Cache.getCustomBlock("minecubed:grown_corn").place(crop.getLocation());
             }
         }
     }
 
     @EventHandler
     public void onBlockPlace(final BlockPlaceEvent event){
-//        Player player = event.getPlayer();
-//        Block block = event.getBlockPlaced();
-        final ItemStack item = event.getItemInHand();
+        final ItemStack eventItem = event.getItemInHand();
     
-        handleCrop(item, CustomItems.getCustomItem("minecubed:lettuce_seeds"), Material.CARROTS,0 , event);
-        handleCrop(item, CustomItems.getCustomItem("minecubed:rice_seeds"), Material.WHEAT,0, event);
-        handleCrop(item, CustomItems.getCustomItem("minecubed:onion_seeds"), Material.POTATOES,0, event);
-        handleCrop(item, CustomItems.getCustomItem("minecubed:eggplant_seeds"), Material.MELON_STEM,0, event);
-        handleCrop(item, CustomItems.getCustomItem("minecubed:corn_seeds"), Material.PUMPKIN_STEM,0, event);
-        handleCrop(item, new ItemStack(Material.CARROT), Material.CARROTS,4 , event);
-        handleCrop(item, new ItemStack(Material.WHEAT_SEEDS), Material.WHEAT,4, event);
-        handleCrop(item, new ItemStack(Material.POTATO), Material.POTATOES,4, event);
-        handleCrop(item, new ItemStack(Material.MELON_SEEDS), Material.MELON_STEM,4, event);
-        handleCrop(item, new ItemStack(Material.PUMPKIN_SEEDS), Material.PUMPKIN_STEM,4, event);
+        handleCrop(eventItem, Cache.getCustomItem("minecubed:lettuce_seeds"), Material.CARROTS,0 , event);
+        handleCrop(eventItem, Cache.getCustomItem("minecubed:rice_seeds"), Material.WHEAT,0, event);
+        handleCrop(eventItem, Cache.getCustomItem("minecubed:onion_seeds"), Material.POTATOES,0, event);
+        handleCrop(eventItem, Cache.getCustomItem("minecubed:eggplant_seeds"), Material.MELON_STEM,0, event);
+        handleCrop(eventItem, Cache.getCustomItem("minecubed:corn_seeds"), Material.PUMPKIN_STEM,0, event);
+        handleCrop(eventItem, new ItemStack(Material.CARROT), Material.CARROTS,4 , event);
+        handleCrop(eventItem, new ItemStack(Material.WHEAT_SEEDS), Material.WHEAT,4, event);
+        handleCrop(eventItem, new ItemStack(Material.POTATO), Material.POTATOES,4, event);
+        handleCrop(eventItem, new ItemStack(Material.MELON_SEEDS), Material.MELON_STEM,4, event);
+        handleCrop(eventItem, new ItemStack(Material.PUMPKIN_SEEDS), Material.PUMPKIN_STEM,4, event);
 
     }
     
-    private void handleCrop(final ItemStack item, final ItemStack placedSeed, final Material crop, int stage, final BlockPlaceEvent event){
-        if (placedSeed.isSimilar(item)){
+    private void handleCrop(final ItemStack eventItem, final ItemStack placedSeed, final Material crop, int stage, final BlockPlaceEvent event){
+        if (placedSeed.isSimilar(eventItem)){
             //Set Age blockdata
             BlockData blockData = crop.createBlockData();
             Ageable ageable = (Ageable) blockData;
@@ -95,7 +94,7 @@ public class CustomCrops implements Listener {
             event.getBlockPlaced().setBlockData(blockData);
     
             //Subtract one seed from hand
-            item.subtract(1);
+            eventItem.subtract(1);
         }
     }
 
@@ -113,19 +112,19 @@ public class CustomCrops implements Listener {
 
         if (type.equals(Material.CARROTS)){
             age = ((Ageable) event.getBlock().getBlockData()).getAge();
-            handleCropBreak(age, location, CustomItems.getCustomItem("minecubed:lettuce"), CustomItems.getCustomItem("minecubed:lettuce_seeds"), event);
+            handleCropBreak(age, location, Cache.getCustomItem("minecubed:lettuce"), Cache.getCustomItem("minecubed:lettuce_seeds"), event);
         } else if (type.equals(Material.WHEAT)) {
             age = ((Ageable) event.getBlock().getBlockData()).getAge();
-            handleCropBreak(age, location, CustomItems.getCustomItem("minecubed:rice"), CustomItems.getCustomItem("minecubed:rice_seeds"), event);
+            handleCropBreak(age, location, Cache.getCustomItem("minecubed:rice"), Cache.getCustomItem("minecubed:rice_seeds"), event);
         } else if (type.equals(Material.POTATOES)) {
             age = ((Ageable) event.getBlock().getBlockData()).getAge();
-            handleCropBreak(age, location, CustomItems.getCustomItem("minecubed:onion"), CustomItems.getCustomItem("minecubed:onion_seeds"), event);
+            handleCropBreak(age, location, Cache.getCustomItem("minecubed:onion"), Cache.getCustomItem("minecubed:onion_seeds"), event);
         } else if (type.equals(Material.MELON_STEM)) {
             age = ((Ageable) event.getBlock().getBlockData()).getAge();
-            handleCropBreak(age, location, CustomItems.getCustomItem("minecubed:eggplant"), CustomItems.getCustomItem("minecubed:eggplant_seeds"), event);
+            handleCropBreak(age, location, Cache.getCustomItem("minecubed:eggplant"), Cache.getCustomItem("minecubed:eggplant_seeds"), event);
         } else if (type.equals(Material.PUMPKIN_STEM)) {
             age = ((Ageable) event.getBlock().getBlockData()).getAge();
-            handleCropBreak(age, location, CustomItems.getCustomItem("minecubed:corn"), CustomItems.getCustomItem("minecubed:corn_seeds"), event);
+            handleCropBreak(age, location, Cache.getCustomItem("minecubed:corn"), Cache.getCustomItem("minecubed:corn_seeds"), event);
         }
     }
 
@@ -140,18 +139,22 @@ public class CustomCrops implements Listener {
 
             Block block = e.getBlock();
             Material type = block.getType();
-            
-            //Add Aurellium skills support
-            double xpAmount = 0;
-            SourceManager sourceManager = AureliumAPI.getPlugin().getSourceManager();
-            if (type.equals(Material.CARROTS) || type.equals(Material.WHEAT) ){ //Lettuce && Rice
-                xpAmount = sourceManager.getXp(FarmingSource.CARROT);
-            } else if (type.equals(Material.POTATOES)) { // Onion
-                xpAmount = sourceManager.getXp(FarmingSource.POTATO);
-            } else if ( CustomItems.getCustomBlock("minecubed:grown_eggplant").getBaseBlockData() == block.getBlockData() || CustomItems.getCustomBlock("minecubed:grown_corn").getBaseBlockData() == block.getBlockData() ) { //Eggplant && Corn
-                xpAmount = sourceManager.getXp(FarmingSource.BEETROOT);
+    
+            // TODO: do this cleaner
+            if (Bukkit.getServer().getPluginManager().isPluginEnabled("AureliumSkills")) {
+                //Add Aurellium skills support
+                double xpAmount = 0;
+                SourceManager sourceManager = AureliumAPI.getPlugin().getSourceManager();
+                if (type.equals(Material.CARROTS) || type.equals(Material.WHEAT)) { //Lettuce && Rice
+                    xpAmount = sourceManager.getXp(FarmingSource.CARROT);
+                } else if (type.equals(Material.POTATOES)) { // Onion
+                    xpAmount = sourceManager.getXp(FarmingSource.POTATO);
+                } else if (Cache.getCustomBlock("minecubed:grown_eggplant").getBlockData() == block.getBlockData() || Cache.getCustomBlock("minecubed:grown_corn").getBlockData() == block.getBlockData()) { //Eggplant && Corn
+                    xpAmount = sourceManager.getXp(FarmingSource.BEETROOT);
+                }
+    
+                AureliumAPI.addXp(e.getPlayer(), Skills.FARMING, xpAmount);
             }
-            AureliumAPI.addXp(e.getPlayer(), Skills.FARMING, xpAmount);
         }
         else {
             return;
@@ -195,7 +198,7 @@ public class CustomCrops implements Listener {
             if ( (cropAge < 2 && newCropAge > 2) || cropAge ==  3 ) {
                 // Set the new block
                 event.setCancelled(true);
-                CustomItems.getCustomBlock("minecubed:grown_eggplant").place(crop.getLocation());
+                Cache.getCustomBlock("minecubed:grown_eggplant").place(crop.getLocation());
             }
         } else if (cropType.equals(Material.PUMPKIN_STEM)) {
             cropAge = ((Ageable) crop.getBlockData()).getAge();
@@ -204,7 +207,7 @@ public class CustomCrops implements Listener {
             if ( (cropAge < 2 && newCropAge > 2) || cropAge ==  3) {
                 // Set the new block
                 event.setCancelled(true);
-                CustomItems.getCustomBlock("minecubed:grown_corn").place(crop.getLocation());
+                Cache.getCustomBlock("minecubed:grown_corn").place(crop.getLocation());
             }
         }
     }

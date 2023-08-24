@@ -1,8 +1,8 @@
 package com.minecubedmc.features;
 
 import com.minecubedmc.Tweaks;
-import com.minecubedmc.items.CustomItems;
-import dev.lone.itemsadder.api.CustomBlock;
+import com.minecubedmc.util.Cache;
+import com.minecubedmc.items.CustomTripwireBlock;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -76,18 +76,19 @@ public class GiantCrops implements Listener {
         
         if (fertileSeason.equals("Any") || fertileSeason.equals(currentSeason)) {
             Ageable ageable = (Ageable) crop.getBlockData();
-            CustomBlock giantCrop = null;
+//            CustomBlock giantCrop = null;
+            CustomTripwireBlock giantCrop = null;
             
             int newAge = ((Ageable) event.getNewState().getBlockData()).getAge();
             if ( type.equals(Material.CARROTS) && ageable.getAge() == 2 && newAge == 3) {
                 if (new Random().nextInt(100) > (100 - 5)) {
-                    giantCrop = CustomItems.getCustomBlock("minecubed:giant_lettuce");
+                    giantCrop = Cache.getCustomBlock("minecubed:giant_lettuce");
                 }
                 else return;
             }
             else if ( type.equals(Material.POTATOES) && ageable.getAge() == 2 && newAge == 3) {
                 if (new Random().nextInt(100) > (100 - 5)) {
-                    giantCrop = CustomItems.getCustomBlock("minecubed:giant_onion");;
+                    giantCrop = Cache.getCustomBlock("minecubed:giant_onion");
                 }
                 else return;
             }
@@ -107,9 +108,9 @@ public class GiantCrops implements Listener {
                     if (isDirectional) {
                         Directional directional = (Directional) crop.getBlockData();
                         String facing = directional.getFacing().toString().toLowerCase();
-                        giantCrop = CustomItems.getCustomBlock(customBlockID.concat("_").concat(facing));
+                        giantCrop = Cache.getCustomBlock(customBlockID.concat("_").concat(facing));
                     } else {
-                        giantCrop = CustomItems.getCustomBlock(customBlockID);
+                        giantCrop = Cache.getCustomBlock(customBlockID);
                     }
                 }
 //            //WIP

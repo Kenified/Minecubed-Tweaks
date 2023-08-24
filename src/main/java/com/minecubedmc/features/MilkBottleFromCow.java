@@ -1,6 +1,6 @@
 package com.minecubedmc.features;
 
-import com.minecubedmc.items.CustomItems;
+import com.minecubedmc.util.Cache;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -30,10 +30,10 @@ public class MilkBottleFromCow implements Listener {
         ItemStack customItem;
         final Entity interactedEntity = event.getRightClicked();
         if (interactedEntity instanceof Cow || interactedEntity instanceof Goat || interactedEntity instanceof Sheep){
-            customItem = CustomItems.getCustomItem("minecubed:milk_bottle");
+            customItem = Cache.getCustomItem("minecubed:milk_bottle");
         }
         else if (interactedEntity instanceof Zombie){
-            customItem = CustomItems.getCustomItem("minecubed:zombie_milk");
+            customItem = Cache.getCustomItem("minecubed:zombie_milk");
         }
         else return;
 

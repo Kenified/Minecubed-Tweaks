@@ -271,6 +271,14 @@ public class BasicUtils {
         }
     }
     
+    public static boolean[] convertToBinaryArray(final int number) {
+        boolean[] binaryDigits = new boolean[7];
+        for (int i = 0; i < 7; i++) {
+            binaryDigits[6 - i] = (number & (1 << i)) != 0;
+        }
+        return binaryDigits;
+    }
+    
     public static class TickInventories {
         
         public static NamespacedKey TOTAL_AGE_KEY;
@@ -290,6 +298,7 @@ public class BasicUtils {
             TickInventories.tickingInventories.remove(uuid);
         }
     
+        //TODO
         public static boolean isAgingItem(final @NotNull ItemStack itemStack) {
             return itemStack.getType().equals(Material.DIAMOND);
 //            if (itemStack.equals(CustomItems.getCustomItem("minecubed:wine"))) return true;

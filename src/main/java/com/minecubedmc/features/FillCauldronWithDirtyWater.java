@@ -1,6 +1,6 @@
 package com.minecubedmc.features;
 
-import com.minecubedmc.items.CustomItems;
+import com.minecubedmc.util.Cache;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Levelled;
@@ -30,7 +30,7 @@ public class FillCauldronWithDirtyWater implements Listener {
         //If event item is null or isn't glass bottle return
         final ItemStack item = event.getItem();
 
-        if (item ==  null || !item.isSimilar(CustomItems.getCustomItem("minecubed:water_bottle"))) {
+        if (item ==  null || !item.isSimilar(Cache.getCustomItem("minecubed:water_bottle"))) {
             return;
         }
 
@@ -45,12 +45,8 @@ public class FillCauldronWithDirtyWater implements Listener {
 
         if (block.getType().equals(Material.WATER_CAULDRON)){
             Levelled cauldron = (Levelled) event.getClickedBlock().getBlockData();
-
-            //If its full ignore
-            if (cauldron.getLevel() == 3) {
-                return;
-            }
-            else{
+            
+            if (cauldron.getLevel() != 3) {
                 //Return Glass Bottle
                 inventory.getItemInMainHand().subtract(1);
                 if (inventory.addItem(new ItemStack(Material.GLASS_BOTTLE)).size() > 0) {

@@ -1,6 +1,6 @@
 package com.minecubedmc.features;
 
-import com.minecubedmc.items.CustomItems;
+import com.minecubedmc.util.Cache;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -62,22 +62,22 @@ public class WaterCauldronPurify implements Listener {
             //If heat source is lit give custom item else give dirty water bottle
             if (heatSourceData.isLit()) {
                 //If inventory is full drop the custom item
-                if (inventory.addItem(CustomItems.getCustomItem("minecubed:purified_water")).size() > 0) {
-                    player.getWorld().dropItem(player.getLocation(), CustomItems.getCustomItem("minecubed:purified_water"));
+                if (inventory.addItem(Cache.getCustomItem("minecubed:purified_water")).size() > 0) {
+                    player.getWorld().dropItem(player.getLocation(), Cache.getCustomItem("minecubed:purified_water"));
                 }
             }
             else{
-                if (inventory.addItem(CustomItems.getCustomItem("minecubed:water_bottle")).size() > 0) {
+                if (inventory.addItem(Cache.getCustomItem("minecubed:water_bottle")).size() > 0) {
                     //If inventory is full drop the custom item
-                    player.getWorld().dropItem(player.getLocation(), CustomItems.getCustomItem("minecubed:water_bottle"));
+                    player.getWorld().dropItem(player.getLocation(), Cache.getCustomItem("minecubed:water_bottle"));
                 }
             }
         }
         //If its not campfire block then give dirty water
         else {
-            if (inventory.addItem(CustomItems.getCustomItem("minecubed:water_bottle")).size() > 0) {
+            if (inventory.addItem(Cache.getCustomItem("minecubed:water_bottle")).size() > 0) {
                 //If inventory is full drop the custom item
-                player.getWorld().dropItem(player.getLocation(), CustomItems.getCustomItem("minecubed:water_bottle"));
+                player.getWorld().dropItem(player.getLocation(), Cache.getCustomItem("minecubed:water_bottle"));
             }
         }
 

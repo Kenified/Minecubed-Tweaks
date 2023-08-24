@@ -1,6 +1,6 @@
 package com.minecubedmc.features;
 
-import com.minecubedmc.items.CustomItems;
+import com.minecubedmc.util.Cache;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -66,8 +66,11 @@ public class TreeBarkStrip implements Listener {
         // Offset drop 1/16th of distance towards player so the item doesn't fly away due to block collision
         Location interactionPoint = event.getInteractionPoint();
         Vector offset = player.getLocation().getDirection().multiply(1/16);
+        
+        if (interactionPoint == null ) return;
+        
         Location dropLocation = interactionPoint.add(offset);
         
-        player.getWorld().dropItem(dropLocation, CustomItems.getCustomItem("minecubed:tree_bark"));
+        player.getWorld().dropItem(dropLocation, Cache.getCustomItem("minecubed:tree_bark"));
     }
 }

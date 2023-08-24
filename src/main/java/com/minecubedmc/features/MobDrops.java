@@ -1,7 +1,7 @@
 package com.minecubedmc.features;
 
 import com.minecubedmc.Tweaks;
-import com.minecubedmc.items.CustomItems;
+import com.minecubedmc.util.Cache;
 import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.core.mobs.ActiveMob;
 import org.bukkit.Location;
@@ -41,19 +41,20 @@ public class MobDrops implements Listener {
             return;
         }
 
-
         //Ignore custom mobs unless its custom ID matches a creeper variant
-        if (MythicBukkit.inst().getMobManager().isMythicMob(entity)){
-            ActiveMob mythicMob = MythicBukkit.inst().getMobManager().getMythicMobInstance(entity);
-            String id = mythicMob.getType().getInternalName().toUpperCase();
-            if (!id.contains("CREEPER")){
-                return;
+        if ( Tweaks.getPluginManager().isPluginEnabled("MythicMobs") ) {
+            if (MythicBukkit.inst().getMobManager().isMythicMob(entity)){
+                ActiveMob mythicMob = MythicBukkit.inst().getMobManager().getMythicMobInstance(entity);
+                String id = mythicMob.getType().getInternalName().toUpperCase();
+                if (!id.contains("CREEPER")){
+                    return;
+                }
             }
         }
 
         //Iron golem
         if (entity instanceof IronGolem){
-            entity.getLocation().getWorld().dropItem(entity.getLocation(), CustomItems.getCustomItem("minecubed:iron_scrap"));
+            entity.getLocation().getWorld().dropItem(entity.getLocation(), Cache.getCustomItem("minecubed:iron_scrap"));
         }
 
         //Only drop head for player kills and get Looting enchant level
@@ -151,7 +152,7 @@ public class MobDrops implements Listener {
     }
 
     private void dropSkull(Location location, int hdbID, float chance){
-        ItemStack item = CustomItems.getHeadItem(hdbID);
+        ItemStack item = Cache.getHeadItem(hdbID);
         dropItem(location, item, chance);
         
     }
