@@ -1,17 +1,13 @@
 package com.minecubedmc.features;
 
 import com.minecubedmc.Tweaks;
+import com.minecubedmc.util.BasicUtils;
 import com.minecubedmc.util.Cache;
 import io.lumine.mythic.bukkit.MythicBukkit;
 import io.lumine.mythic.core.mobs.ActiveMob;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.IronGolem;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -23,8 +19,9 @@ import java.util.Random;
 
 public class MobDrops implements Listener {
 
+    // Player specific drops
     @EventHandler
-    public void onEntityDeath(final EntityDeathEvent event){
+    public void onEntityKill(final EntityDeathEvent event){
         final LivingEntity entity = event.getEntity();
         final String worldName = entity.getWorld().getName();
 
@@ -52,11 +49,6 @@ public class MobDrops implements Listener {
             }
         }
 
-        //Iron golem
-        if (entity instanceof IronGolem){
-            entity.getLocation().getWorld().dropItem(entity.getLocation(), Cache.getCustomItem("minecubed:iron_scrap"));
-        }
-
         //Only drop head for player kills and get Looting enchant level
         float lootingBonus = 0;
         if (event.getEntity().getKiller() != null){
@@ -75,16 +67,16 @@ public class MobDrops implements Listener {
         final EntityType eType = entity.getType();
         switch (eType) {
             case ZOMBIE -> {
-                dropSkull(location, Material.ZOMBIE_HEAD, 2.5f + lootingBonus);
+                dropSkull(location, Material.ZOMBIE_HEAD, 0.5f + lootingBonus);
             }
             case CREEPER -> {
-                dropSkull(location, Material.CREEPER_HEAD, 2.5f + lootingBonus);
+                dropSkull(location, Material.CREEPER_HEAD, 0.5f + lootingBonus);
             }
             case SKELETON -> {
-                dropSkull(location, Material.SKELETON_SKULL, 2.5f + lootingBonus);
+                dropSkull(location, Material.SKELETON_SKULL, 0.5f + lootingBonus);
             }
             case BLAZE -> {
-                dropSkull(location, 47778, 2.5f + lootingBonus);
+                dropSkull(location, 47778, 1.5f + lootingBonus);
             }
             case IRON_GOLEM -> {
                 dropSkull(location, 45422, 10 * (lootingBonus + 1));
@@ -93,16 +85,16 @@ public class MobDrops implements Listener {
                 dropSkull(location, 39103, 2.5f + lootingBonus);
             }
             case HUSK -> {
-                dropSkull(location, 38782, 2.5f + lootingBonus);
+                dropSkull(location, 38782, 0.5f + lootingBonus);
             }
             case GHAST -> {
                 dropSkull(location, 40638, 6 * (lootingBonus + 1));
             }
             case ENDERMAN -> {
-                dropSkull(location, 23778, 2.5f + lootingBonus);
+                dropSkull(location, 23778, 0.5f + lootingBonus);
             }
             case DROWNED -> {
-                dropSkull(location, 47290, 2.5f + lootingBonus);
+                dropSkull(location, 47290, 1.5f + lootingBonus);
             }
             case PHANTOM -> {
                 dropSkull(location, 18091, 2.5f + lootingBonus);
@@ -123,16 +115,16 @@ public class MobDrops implements Listener {
                 dropSkull(location, 24080, 8 * (lootingBonus + 1));
             }
             case SPIDER -> {
-                dropSkull(location, 32706, 2.5f + lootingBonus);
+                dropSkull(location, 32706, 0.5f + lootingBonus);
             }
             case CAVE_SPIDER -> {
-                dropSkull(location, 26009, 2.5f + lootingBonus);
+                dropSkull(location, 26009, 0.5f + lootingBonus);
             }
             case STRAY -> {
-                dropSkull(location, 3244, 2.5f + lootingBonus);
+                dropSkull(location, 3244, 0.5f + lootingBonus);
             }
             case WITCH -> {
-                dropSkull(location, 3864, 5f + lootingBonus);
+                dropSkull(location, 3864, 2.5f + lootingBonus);
             }
             case ELDER_GUARDIAN, GUARDIAN -> {
                 dropSkull(location, 3135, 2.5f + lootingBonus);
@@ -145,7 +137,138 @@ public class MobDrops implements Listener {
             }
         }
     }
-    
+
+    // Non player specific drops
+    @EventHandler
+    public void onEntityDeath(final EntityDeathEvent event){
+        final LivingEntity entity = event.getEntity();
+        final String worldName = entity.getWorld().getName();
+
+        //Prevent mob drops in dungeon worlds
+        if (worldName.equals("dungeon_vexkin")){
+            event.getDrops().clear();
+            return;
+        }
+
+        //AFK check
+//        Collection<Player> players = event.getEntity().getLocation().getNearbyPlayers(( entity.getWorld().getSimulationDistance() * 16) + 8 );
+//        if (players.parallelStream().allMatch(player -> Tweaks.getEssentials().getUser(player).isAfk() || player.getGameMode().equals(GameMode.SPECTATOR))) {
+//            event.getDrops().clear();
+//            return;
+//        }
+
+        if (BasicUtils.afkCheck(event.getEntity().getLocation())){
+            event.getDrops().clear();
+            return;
+        }
+
+
+        //Ignore custom mobs unless its custom ID matches a creeper variant
+        if ( Tweaks.getPluginManager().isPluginEnabled("MythicMobs") ) {
+            if (MythicBukkit.inst().getMobManager().isMythicMob(entity)){
+                ActiveMob mythicMob = MythicBukkit.inst().getMobManager().getMythicMobInstance(entity);
+                String id = mythicMob.getType().getInternalName().toUpperCase();
+                if (!id.contains("CREEPER")){
+                    return;
+                }
+            }
+        }
+
+        //Iron golem
+        if (entity instanceof IronGolem){
+            ItemStack ironScrap = Cache.getCustomItem("minecubed:iron_scrap");
+            ironScrap.setAmount(new Random().nextInt(3) + 1);
+            entity.getLocation().getWorld().dropItem(entity.getLocation(), ironScrap);
+        }
+
+        final Location location = entity.getLocation();
+        final EntityType eType = entity.getType();
+        int lootingBonus = 0;
+        if (event.getEntity().getKiller() != null) {
+            lootingBonus = event.getEntity().getKiller().getInventory().getItemInMainHand().getEnchantments().getOrDefault(Enchantment.LOOT_BONUS_MOBS, 0);
+        }
+
+        switch (eType) {
+            case CREEPER -> {
+                for (int i = 0; i < event.getDrops().size(); i++){
+                    ItemStack originalItem = event.getDrops().get(i);
+                    if (originalItem == null) return;
+                    if (originalItem.getType().equals(Material.GUNPOWDER)) {
+                        // Get sulfur
+                        ItemStack sulfur = Cache.getCustomItem("minecubed:sulfur");
+                        // Set sulfur amount to gunpowder amount
+                        sulfur.setAmount(originalItem.getAmount());
+                        // Replace gunpowder with sulfur
+                        event.getDrops().set(i, sulfur);
+                        // Stop loop
+                        break;
+                    }
+                }
+            }
+            case WITCH -> {
+                event.getDrops().removeIf(itemStack -> itemStack.getType().equals(Material.GUNPOWDER));
+            }
+            case COW -> {
+                for (int i = 0; i < event.getDrops().size(); i++){
+                    ItemStack originalItem = event.getDrops().get(i);
+                    if (originalItem == null) return;
+                    if (originalItem.getType().equals(Material.LEATHER)) {
+                        // Get sulfur
+                        ItemStack cowHide = Cache.getCustomItem("minecubed:cow_hide");
+                        // Set sulfur amount to gunpowder amount
+                        cowHide.setAmount(originalItem.getAmount());
+                        // Replace gunpowder with sulfur
+                        event.getDrops().set(i, cowHide);
+                        // Stop loop
+                        break;
+                    }
+                }
+            }
+            case MUSHROOM_COW -> {
+                for (int i = 0; i < event.getDrops().size(); i++){
+                    ItemStack originalItem = event.getDrops().get(i);
+                    if (originalItem == null) return;
+                    if (originalItem.getType().equals(Material.LEATHER)) {
+                        // Get sulfur
+                        ItemStack cowHide = Cache.getCustomItem("minecubed:mooshroom_hide");
+                        // Set sulfur amount to gunpowder amount
+                        cowHide.setAmount(originalItem.getAmount());
+                        // Replace gunpowder with sulfur
+                        event.getDrops().set(i, cowHide);
+                        // Stop loop
+                        break;
+                    }
+                }
+            }
+            case PIG -> {
+                // Simulate drops
+                int randAmount = new Random().nextInt(3 + lootingBonus);
+                ItemStack pigHide = Cache.getCustomItem("minecubed:pig_hide");
+                pigHide.setAmount(randAmount);
+                location.getWorld().dropItemNaturally(location, pigHide);
+            }
+            case HOGLIN -> {
+                for (int i = 0; i < event.getDrops().size(); i++){
+                    ItemStack originalItem = event.getDrops().get(i);
+                    if (originalItem == null) return;
+                    if (originalItem.getType().equals(Material.LEATHER)) {
+                        // Get sulfur
+                        ItemStack cowHide = Cache.getCustomItem("minecubed:pig_hide");
+                        // Set sulfur amount to gunpowder amount
+                        cowHide.setAmount(originalItem.getAmount());
+                        // Replace gunpowder with sulfur
+                        event.getDrops().set(i, cowHide);
+                        // Stop loop
+                        break;
+                    }
+                }
+            }
+            case HORSE, DONKEY, MULE, LLAMA, TRADER_LLAMA -> {
+                event.getDrops().removeIf(itemStack -> itemStack.getType().equals(Material.LEATHER));
+            }
+        }
+    }
+
     private void dropSkull(Location location, Material material, float chance){
         ItemStack item = new ItemStack(material);
         dropItem(location, item, chance);

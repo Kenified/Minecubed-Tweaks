@@ -2,6 +2,7 @@ package com.minecubedmc.features;
 
 import com.minecubedmc.Tweaks;
 import dev.lone.itemsadder.api.CustomStack;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -167,6 +168,7 @@ public class ChangeVanillaFoodLevels implements Listener {
             case WHITE_CANDLE_CAKE:
             case YELLOW_CANDLE_CAKE:
             case POTION:
+            case BRUSH:
                 break;
             case RABBIT_STEW:
             case BEETROOT_SOUP:
@@ -175,7 +177,7 @@ public class ChangeVanillaFoodLevels implements Listener {
                 event.setCancelled(true);
                 break;
             default:
-                plugin.getLogger().warning("You missed one ken -.- dumbass " + foodType);
+                plugin.getLogger().warning("Unknown food type: " + foodType);
                 event.setCancelled(true);
                 break;
 
@@ -202,6 +204,10 @@ public class ChangeVanillaFoodLevels implements Listener {
         }
 
         player.setSaturation(playerSaturation);
+
+        if (player.getGameMode().equals(GameMode.CREATIVE)){
+            return;
+        }
 
         if (inventory.getItemInMainHand().equals(food)){
             inventory.getItemInMainHand().subtract(1);

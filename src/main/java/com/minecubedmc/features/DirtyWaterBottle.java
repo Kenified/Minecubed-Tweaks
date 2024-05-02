@@ -21,6 +21,7 @@ public class DirtyWaterBottle implements Listener {
     
     @EventHandler
     public void onPlayerInteract(final PlayerInteractEvent event) {
+        
         //Check if it is not in offhand
         if (event.getHand() == EquipmentSlot.OFF_HAND){
             return;

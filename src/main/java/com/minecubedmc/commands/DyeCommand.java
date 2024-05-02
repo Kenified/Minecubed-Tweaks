@@ -91,6 +91,8 @@ public class DyeCommand extends Command {
         return true;
     }
 
+
+    //TODO: move this to a util class
     private Color hex2Rgb(String colorStr) {
         return Color.fromRGB(
             Integer.valueOf(colorStr.substring(1, 3), 16),

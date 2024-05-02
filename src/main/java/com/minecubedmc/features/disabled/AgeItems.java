@@ -1,4 +1,4 @@
-package com.minecubedmc.features;
+package com.minecubedmc.features.disabled;
 
 import com.minecubedmc.Tweaks;
 import com.minecubedmc.util.BasicUtils;

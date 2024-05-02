@@ -1,4 +1,4 @@
-package com.minecubedmc.runanbles;
+package com.minecubedmc.tasks;
 
 import com.minecubedmc.Tweaks;
 import com.minecubedmc.util.BasicUtils;
@@ -8,11 +8,12 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TickInventories implements Runnable{
+public class TickInventories extends BukkitRunnable {
     
     private final Tweaks plugin;
 

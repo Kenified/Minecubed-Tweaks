@@ -22,15 +22,16 @@ public class LimitFallDamage implements Listener {
 
         if (entity instanceof Player player) {
 
-            //If player wears no boots return
-            final ItemStack boots = player.getInventory().getBoots();
-            if (boots == null){
-                return;
-            }
-
             //Ignore fall damage event completely if its below certain fall distance since damage is usually 0 anyhow
             float fallDistance = player.getFallDistance();
             if (fallDistance > 3) {
+
+                //If player wears no boots return
+                final ItemStack boots = player.getInventory().getBoots();
+                if (boots == null){
+                    return;
+                }
+
                 float featherFallingLevel = boots.getEnchantments().getOrDefault(Enchantment.PROTECTION_FALL, 0);
                 if (fallDistance < featherFallingLevel * 2.5) {
                     event.setCancelled(true);

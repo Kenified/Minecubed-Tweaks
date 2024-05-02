@@ -1,6 +1,7 @@
 package com.minecubedmc.features;
 
 import com.minecubedmc.Tweaks;
+import com.minecubedmc.util.BasicUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,6 +23,10 @@ public class BlockAFKDispenserGrow implements Listener {
         //Get nearby players and if all of them are afk cancel the growth
         final Collection<Player> players = event.getBlock().getLocation().getNearbyPlayers((event.getBlock().getWorld().getSimulationDistance() * 16) + 8 );
         if (players.stream().allMatch(player -> Tweaks.getEssentials().getUser(player).isAfk())) {
+            event.setCancelled(true);
+        }
+
+        if (BasicUtils.afkCheck(event.getBlock().getLocation())){
             event.setCancelled(true);
         }
     }

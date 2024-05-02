@@ -15,8 +15,8 @@ public class ItemsAdderLoad implements Listener {
     
     @EventHandler
     public void onItemAdderDataLoad(final ItemsAdderLoadDataEvent event) {
+        Cache.resetItemCache();
         Tweaks.setIALoaded();
         plugin.getLogger().info("ItemsAdder hooked");
-        plugin.getLogger().info("Loaded: " + Tweaks.isIALoaded());
     }
 }

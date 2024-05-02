@@ -99,64 +99,115 @@
             <id>confuser-repo</id>
             <url>https://ci.frostcast.net/plugin/repository/everything</url>
         </repository>
+        <repository>
+            <id>auxilor-repo</id>
+            <url>https://repo.auxilor.io/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>elMakers</id>
+            <url>https://maven.elmakers.com/repository/</url>
+        </repository>
     </repositories>
 
     <dependencies>
+        <!-- Paper API -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20-R0.1-SNAPSHOT</version>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <!-- ItemsAdder API -->
         <dependency>
             <groupId>com.github.LoneDev6</groupId>
             <artifactId>api-itemsadder</artifactId>
             <version>3.5.0b</version>
             <scope>provided</scope>
         </dependency>
+        <!-- HeadDatabase API -->
         <dependency>
             <groupId>com.arcaniax</groupId>
             <artifactId>HeadDatabase-API</artifactId>
             <version>1.3.1</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Seasons API -->
+        <dependency>
+            <groupId>me.casperge.realisticseasons.api</groupId>
+            <artifactId>SeasonsAPI</artifactId>
+            <version>10.5.9</version>
+            <scope>system</scope>
+            <systemPath>E:/Paper Plugins/!DEPENDENCIES/RealisticSeasons-10.5.9.jar</systemPath>
+        </dependency>
+        <!-- Epidemic API -->
+        <dependency>
+            <groupId>com.ibexmc.epidemic</groupId>
+            <artifactId>Epidemic</artifactId>
+            <version>1.7.6</version>
+            <scope>system</scope>
+            <systemPath>E:/Paper Plugins/!DEPENDENCIES/Epidemic_1_7_6.jar</systemPath>
+        </dependency>
+        <!-- MythicMobs API -->
         <dependency>
             <groupId>io.lumine</groupId>
             <artifactId>Mythic-Dist</artifactId>
             <version>5.2.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Essentials -->
         <dependency>
             <groupId>net.essentialsx</groupId>
             <artifactId>EssentialsX</artifactId>
             <version>2.19.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Aurelium Skills -->
         <dependency>
             <groupId>com.github.Archy-X</groupId>
             <artifactId>AureliumSkills</artifactId>
             <version>Beta1.3.9</version>
             <scope>provided</scope>
         </dependency>
+        <!-- AuthMe -->
         <dependency>
             <groupId>fr.xephi</groupId>
             <artifactId>authme</artifactId>
             <version>5.6.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>me.confuser.banmanager</groupId>-->
-<!--            <artifactId>BanManagerBukkit</artifactId>-->
-<!--            <version>7.7.0-SNAPSHOT</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+        <!-- Litebans API -->
         <dependency>
             <groupId>com.gitlab.ruany</groupId>
             <artifactId>LiteBansAPI</artifactId>
             <version>0.3.5</version>
             <scope>provided</scope>
         </dependency>
-
+        <!-- EffectLib -->
+        <dependency>
+            <groupId>com.elmakers.mine.bukkit</groupId>
+            <artifactId>EffectLib</artifactId>
+            <version>10.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Ecoenchants -->
+        <dependency>
+            <groupId>com.willfp</groupId>
+            <artifactId>EcoEnchants</artifactId>
+            <version>10.36.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- NBTApi -->
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api-plugin</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+        <!-- AnvilGUI -->
+        <dependency>
+            <groupId>net.wesjd</groupId>
+            <artifactId>anvilgui</artifactId>
+            <version>1.9.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

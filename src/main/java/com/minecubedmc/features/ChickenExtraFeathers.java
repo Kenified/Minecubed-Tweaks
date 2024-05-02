@@ -18,6 +18,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
+import java.util.Random;
 
 
 public class ChickenExtraFeathers implements Listener {
@@ -42,10 +43,6 @@ public class ChickenExtraFeathers implements Listener {
             return;
         }
     
-        final World world = entity.getWorld();
-        final Location location = entity.getLocation();
-        final ItemStack drop = new ItemStack(Material.FEATHER);
-    
         final double health = ((Chicken) entity).getHealth();
         final double maxHealth = ((Chicken) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
 
@@ -57,7 +54,14 @@ public class ChickenExtraFeathers implements Listener {
             ((Chicken) entity).setHealth(Math.min(health + 1, maxHealth));
         }
 
-        world.dropItemNaturally(location, drop);
+        // 50% chance to drop feather
+        if (new Random().nextFloat() < 0.5f) {
+            final World world = entity.getWorld();
+            final Location location = entity.getLocation();
+            final ItemStack drop = new ItemStack(Material.FEATHER);
+            world.dropItemNaturally(location, drop);
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler

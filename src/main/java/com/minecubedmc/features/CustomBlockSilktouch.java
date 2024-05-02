@@ -34,8 +34,9 @@ public class CustomBlockSilktouch implements Listener {
         final World world = block.getWorld();
         final Location location = block.getLocation();
 
-        event.setCancelled(true);
-        block.setType(Material.AIR);
+//        event.setCancelled(true);
+//        block.setType(Material.AIR);
+        event.setDropItems(false);
         world.dropItemNaturally(location, new ItemStack(type));
     }
 }

@@ -8,8 +8,8 @@ import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -55,6 +55,15 @@ public class BasicUtils {
                 case 761 -> {
                     return "1.19.3";
                 }
+                case 762 -> {
+                    return "1.19.4";
+                }
+                case 763 -> {
+                    return "1.20.1";
+                }
+                case 764 -> {
+                    return "1.20.2";
+                }
                 default -> {
                     return String.format("Unknown Version %s (Ping Ken)", protocolVersion);
                 }
@@ -76,6 +85,7 @@ public class BasicUtils {
                 clientBrand = switch (clientBrand.toLowerCase()) {
                     case "fabric" -> "Fabric Modloader";
                     case "forge" -> "Forge Modloader";
+                    case "quilt" -> "Quilt Modloader";
                     default -> capitalizeFirstLetter(clientBrand);
                 };
             }
@@ -153,6 +163,14 @@ public class BasicUtils {
                     "Vanilla is the base Minecraft client made by Mojang.",
                     "https://www.minecraft.net/"
                 };
+                case "quilt modloader" -> new String[]{
+                    "Quilt is a Fabric fork that allows you to run Fabric/Quilt mods on Minecraft.",
+                    "https://quiltmc.org/"
+                };
+                case "optifine" -> new String[]{
+                    "Optifine is a mod that offers slight performance boost and custom texture/model features.",
+                    "https://optifine.net/"
+                };
                 default -> new String[]{
                     "No info for this client, ping Ken to add description.",
                     ""
@@ -168,7 +186,8 @@ public class BasicUtils {
                 .split(":")[0]
                 .replace("/", "");
             String geoLocation = Tweaks.getEssentials().getUser(username).getGeoLocation();
-            geoLocation = (geoLocation == null) ? "" : geoLocation;
+            geoLocation = (geoLocation == null) ? "Unknown Location" : geoLocation;
+            String geoLocationTruncated = (geoLocation.length() > 32) ? (geoLocation.substring(0, 32) + "...") : geoLocation;
             final String clientBrand = getClientBrand(player);
             final String clientVersion = getClientVersion(player);
             final long banCount = getBanCount(player);
@@ -241,7 +260,7 @@ public class BasicUtils {
                 .append(Component.newline())
                 .append(TEXT_PADDING
                     .append(Component.text("Location: ", HIGHLIGHT_COLOR))
-                    .append(Component.text(geoLocation, PRIMARY_COLOR))
+                    .append(Component.text(geoLocationTruncated, PRIMARY_COLOR))
                     .clickEvent(openMapsURL)
                     .hoverEvent(showMapsURL)
                 )
@@ -278,9 +297,20 @@ public class BasicUtils {
         }
         return binaryDigits;
     }
-    
+
+    // TODO: Temporarily use unsafe method to get biome key until paper adds official method
+    @SuppressWarnings("deprecation")
+    public static String getBiomeKey(final @NotNull Block block) {
+        return Bukkit.getUnsafe().getBiomeKey(block.getWorld(), block.getX(), block.getY(), block.getZ()).toString();
+    }
+
+    public static boolean afkCheck(Location location) {
+        //AFK check
+        Collection<Player> players = location.getNearbyPlayers(( location.getWorld().getSimulationDistance() * 16) + 8 );
+        return players.parallelStream().allMatch(player -> Tweaks.getEssentials().getUser(player).isAfk() || player.getGameMode().equals(GameMode.SPECTATOR));
+    }
+
     public static class TickInventories {
-        
         public static NamespacedKey TOTAL_AGE_KEY;
         public static NamespacedKey START_TIME_KEY;
         public static NamespacedKey TEMP_AGE_KEY;
@@ -306,8 +336,5 @@ public class BasicUtils {
 //            else return false;
         }
     }
-    
-    
-    
-    
+
 }

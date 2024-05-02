@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class CustomTripwireBlock {
     private final Tripwire customBlockData;
     
-    public CustomTripwireBlock(int ID) {
+    public CustomTripwireBlock(final int ID) {
         boolean[] states = BasicUtils.convertToBinaryArray(ID);
         customBlockData = (Tripwire) Material.TRIPWIRE.createBlockData();
         customBlockData.setAttached(states[0]);

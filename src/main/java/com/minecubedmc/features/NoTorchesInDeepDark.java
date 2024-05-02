@@ -23,8 +23,10 @@ public class NoTorchesInDeepDark implements Listener {
             Location loc = block.getLocation();
             String biome = block.getWorld().getBiome(loc).toString();
 
-            if (biome.equals("DEEP_DARK"))
+            if (biome.equals("DEEP_DARK")) {
+                event.getPlayer().sendMessage("Only soul torches seem to work here...");
                 event.setCancelled(true);
+            }
         }
     }
 }

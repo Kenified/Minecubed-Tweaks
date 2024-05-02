@@ -57,7 +57,7 @@ public class TreeBarkStrip implements Listener {
         }
 
         //You cannot strip stripped log
-        if (blockName.contains("STRIPPED")) {
+        if (blockName.contains("stripped")) {
             return;
         }
     

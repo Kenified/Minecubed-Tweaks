@@ -4,6 +4,7 @@ import com.minecubedmc.Tweaks;
 import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,10 +33,18 @@ public class Cache {
     }
 */
     
-    public static ItemStack getCustomItem(final String ID) {
-        // Special case for tripwire because of custom block system
-        if (ID.equals("minecubed:tripwire")) {
-            return new ItemStack(Material.TRIPWIRE);
+    public static ItemStack getCustomItem(@NotNull String ID) {
+        // Special cases
+        switch (ID) {
+            case "minecubed:tripwire" -> {
+                return new ItemStack(Material.TRIPWIRE);
+            }
+            case "minecubed:giant_cocoa_north", "minecubed:giant_cocoa_west", "minecubed:giant_cocoa_east", "minecubed:giant_cocoa_south" ->
+                ID = "minecubed:giant_cocoa";
+            // Block that do not have an item
+            case "minecubed:grown_eggplant", "minecubed:grown_corn" -> {
+                return new ItemStack(Material.AIR);
+            }
         }
     
         ItemStack customItem = ItemCache.getOrDefault(ID, DEFAULT_ITEM);
@@ -53,7 +62,7 @@ public class Cache {
                     );
                 }
                 else customItem = CustomStack.getInstance(ID).getItemStack();
-            }
+            } else return null;
             ItemCache.put(ID, customItem);
         }
     
@@ -72,5 +81,17 @@ public class Cache {
         return headItem;
     }
     
-    
+    public static void resetItemCache() {
+        if (!ItemCache.isEmpty()){
+            ItemCache.clear();
+            Tweaks.getPlugin(Tweaks.class).getLogger().info("Item cache cleared");
+        }
+    }
+
+    public static void resetHeadCache(){
+        if (!HDBCache.isEmpty()){
+            HDBCache.clear();
+            Tweaks.getPlugin(Tweaks.class).getLogger().info("Head cache cleared");
+        }
+    }
 }

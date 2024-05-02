@@ -9,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class PlayerInfoCommand extends Command {
-    
     Tweaks plugin;
     public PlayerInfoCommand(Tweaks plugin, String label) {
         super(label);

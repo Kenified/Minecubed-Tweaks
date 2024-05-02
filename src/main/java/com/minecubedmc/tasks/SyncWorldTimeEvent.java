@@ -1,12 +1,13 @@
-package com.minecubedmc.runanbles;
+package com.minecubedmc.tasks;
 
 import com.minecubedmc.Tweaks;
 import org.bukkit.GameRule;
 import org.bukkit.World;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
-public class SyncWorldTimeEvent implements Runnable{
+public class SyncWorldTimeEvent extends BukkitRunnable {
 
     Tweaks plugin;
     World overworld;
@@ -30,6 +31,8 @@ public class SyncWorldTimeEvent implements Runnable{
                 world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
             }
         }
+
+        plugin.getLogger().info("Started syncing time for worlds: " + Arrays.toString(syncedWorldName));
         
     }
 

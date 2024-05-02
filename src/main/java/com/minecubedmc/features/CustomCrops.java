@@ -16,6 +16,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Bee;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFertilizeEvent;
@@ -30,8 +31,12 @@ import java.util.Random;
 
 public class CustomCrops implements Listener {
     
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onCropGrow(final BlockGrowEvent event) {
+        if (event.isCancelled()){
+            return;
+        }
+
         final Block crop = event.getBlock();
         final Material cropType = crop.getType();
     
@@ -66,6 +71,10 @@ public class CustomCrops implements Listener {
 
     @EventHandler
     public void onBlockPlace(final BlockPlaceEvent event){
+        if (event.isCancelled()) {
+            return;
+        }
+
         final ItemStack eventItem = event.getItemInHand();
     
         handleCrop(eventItem, Cache.getCustomItem("minecubed:lettuce_seeds"), Material.CARROTS,0 , event);
@@ -100,7 +109,9 @@ public class CustomCrops implements Listener {
 
     @EventHandler
     public void onBlockBreak(final BlockBreakEvent event){
-        if (event.isCancelled()) return;
+        if (event.isCancelled()) {
+            return;
+        }
 
         if (event.getPlayer().getGameMode().equals(GameMode.CREATIVE)){
             return;
@@ -125,6 +136,11 @@ public class CustomCrops implements Listener {
         } else if (type.equals(Material.PUMPKIN_STEM)) {
             age = ((Ageable) event.getBlock().getBlockData()).getAge();
             handleCropBreak(age, location, Cache.getCustomItem("minecubed:corn"), Cache.getCustomItem("minecubed:corn_seeds"), event);
+        } else if (type.equals(Material.PITCHER_CROP)) {
+            age = ((Ageable) event.getBlock().getBlockData()).getAge();
+            if (age == 4) {
+                location.getWorld().dropItemNaturally(location, Cache.getCustomItem("minecubed:grapes"));
+            }
         }
     }
 
@@ -164,6 +180,10 @@ public class CustomCrops implements Listener {
 
     @EventHandler
     public void onBonemeal(final BlockFertilizeEvent event){
+        if (event.isCancelled()){
+            return;
+        }
+
         final Block crop = event.getBlock();
         final Material cropType = crop.getType();
         int cropAge;
@@ -193,7 +213,11 @@ public class CustomCrops implements Listener {
             }
         } else if (cropType.equals(Material.MELON_STEM)) {
             cropAge = ((Ageable) crop.getBlockData()).getAge();
-            newCropAge = ((Ageable) event.getBlocks().get(0).getBlockData()).getAge();
+            
+            if (event.getBlocks().get(0) instanceof Ageable)
+                newCropAge = ((Ageable) event.getBlocks().get(0).getBlockData()).getAge();
+            else
+                newCropAge = 3;
 
             if ( (cropAge < 2 && newCropAge > 2) || cropAge ==  3 ) {
                 // Set the new block
@@ -202,7 +226,10 @@ public class CustomCrops implements Listener {
             }
         } else if (cropType.equals(Material.PUMPKIN_STEM)) {
             cropAge = ((Ageable) crop.getBlockData()).getAge();
-            newCropAge = ((Ageable) event.getBlocks().get(0).getBlockData()).getAge();
+            if (event.getBlocks().get(0) instanceof Ageable)
+                newCropAge = ((Ageable) event.getBlocks().get(0).getBlockData()).getAge();
+            else
+                newCropAge = 3;
 
             if ( (cropAge < 2 && newCropAge > 2) || cropAge ==  3) {
                 // Set the new block
@@ -214,6 +241,10 @@ public class CustomCrops implements Listener {
 
     @EventHandler
     public void onBeeFertilize(final EntityChangeBlockEvent event){
+        if (event.isCancelled()){
+            return;
+        }
+
         if (! (event.getEntity() instanceof Bee)){
             return;
         }
