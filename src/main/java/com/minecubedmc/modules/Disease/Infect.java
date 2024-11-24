@@ -118,14 +118,14 @@ public class Infect extends BukkitRunnable {
             // Secondary diseases
             String diseases = Diseases.getDiseases(player);
             if (diseases.contains("wound") || diseases.contains("cut")) {
-                String biomeKey = BasicUtils.getBiomeKey(player.getLocation().getBlock());
+                String biomeKey = BasicUtils.getBiomeKey(player.getLocation());
 
                 if (biomeKey.equals("minecraft:jungle") ||
-                    biomeKey.equals("minecraft:bamboo_jungle") ||
-                    biomeKey.equals("minecraft:swamp") ||
-                    biomeKey.equals("minecraft:mangrove_swamp") ||
-                    biomeKey.equals("minecraft:lush_caves") ||
-                    biomeKey.equals("minecubed:dark_jungle")
+                        biomeKey.equals("minecraft:bamboo_jungle") ||
+                        biomeKey.equals("minecraft:swamp") ||
+                        biomeKey.equals("minecraft:mangrove_swamp") ||
+                        biomeKey.equals("minecraft:lush_caves") ||
+                        biomeKey.equals("minecubed:dark_jungle")
                 ) {
                     if (random.nextFloat() < 0.1f && !diseases.contains("typhus")) {
                         playerInfectionsData.addInfection("typhus");

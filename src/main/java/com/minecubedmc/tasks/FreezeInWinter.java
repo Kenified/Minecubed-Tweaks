@@ -2,6 +2,7 @@ package com.minecubedmc.tasks;
 
 import com.minecubedmc.Tweaks;
 import com.minecubedmc.util.BasicUtils;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -33,10 +34,11 @@ public class FreezeInWinter extends BukkitRunnable {
                 return;
             }
 
-            Block block = player.getLocation().getBlock();
+            Location playerLocation = player.getLocation();
+            Block block = playerLocation.getBlock();
 
             // Get biome key from block
-            String biomeKey = BasicUtils.getBiomeKey(block);
+            String biomeKey = BasicUtils.getBiomeKey(playerLocation);
 
             //Don't freeze in warm biomes
             if (isInWarmBiome(biomeKey)) {

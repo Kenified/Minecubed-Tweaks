@@ -300,8 +300,8 @@ public class BasicUtils {
 
     // TODO: Temporarily use unsafe method to get biome key until paper adds official method
     @SuppressWarnings("deprecation")
-    public static String getBiomeKey(final @NotNull Block block) {
-        return Bukkit.getUnsafe().getBiomeKey(block.getWorld(), block.getX(), block.getY(), block.getZ()).toString();
+    public static String getBiomeKey(final @NotNull Location location) {
+        return Bukkit.getUnsafe().getBiomeKey(location.getWorld(), location.blockX(), location.blockY(), location.blockZ()).toString();
     }
 
     public static boolean afkCheck(Location location) {
