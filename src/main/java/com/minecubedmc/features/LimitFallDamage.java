@@ -32,7 +32,7 @@ public class LimitFallDamage implements Listener {
                     return;
                 }
 
-                float featherFallingLevel = boots.getEnchantments().getOrDefault(Enchantment.PROTECTION_FALL, 0);
+                float featherFallingLevel = boots.getEnchantments().getOrDefault(Enchantment.FEATHER_FALLING, 0);
                 if (fallDistance < featherFallingLevel * 2.5) {
                     event.setCancelled(true);
                     return;

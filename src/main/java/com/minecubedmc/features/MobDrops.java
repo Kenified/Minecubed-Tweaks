@@ -52,7 +52,7 @@ public class MobDrops implements Listener {
         //Only drop head for player kills and get Looting enchant level
         float lootingBonus = 0;
         if (event.getEntity().getKiller() != null){
-            lootingBonus = event.getEntity().getKiller().getInventory().getItemInMainHand().getEnchantments().getOrDefault(Enchantment.LOOT_BONUS_MOBS, 0);
+            lootingBonus = event.getEntity().getKiller().getInventory().getItemInMainHand().getEnchantments().getOrDefault(Enchantment.LOOTING, 0);
         }
         else return;
 
@@ -111,7 +111,7 @@ public class MobDrops implements Listener {
             case MAGMA_CUBE -> {
                 dropSkull(location, 323, 1.25f + lootingBonus);
             }
-            case SNOWMAN -> {
+            case SNOW_GOLEM -> {
                 dropSkull(location, 24080, 8 * (lootingBonus + 1));
             }
             case SPIDER -> {
@@ -185,7 +185,7 @@ public class MobDrops implements Listener {
         final EntityType eType = entity.getType();
         int lootingBonus = 0;
         if (event.getEntity().getKiller() != null) {
-            lootingBonus = event.getEntity().getKiller().getInventory().getItemInMainHand().getEnchantments().getOrDefault(Enchantment.LOOT_BONUS_MOBS, 0);
+            lootingBonus = event.getEntity().getKiller().getInventory().getItemInMainHand().getEnchantments().getOrDefault(Enchantment.LOOTING, 0);
         }
 
         switch (eType) {
@@ -224,7 +224,7 @@ public class MobDrops implements Listener {
                     }
                 }
             }
-            case MUSHROOM_COW -> {
+            case MOOSHROOM -> {
                 for (int i = 0; i < event.getDrops().size(); i++){
                     ItemStack originalItem = event.getDrops().get(i);
                     if (originalItem == null) return;

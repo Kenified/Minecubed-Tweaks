@@ -44,7 +44,7 @@ public class ChickenExtraFeathers implements Listener {
         }
     
         final double health = ((Chicken) entity).getHealth();
-        final double maxHealth = ((Chicken) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
+        final double maxHealth = ((Chicken) entity).getAttribute(Attribute.MAX_HEALTH).getValue();
 
         //Fix error 'Health must be between 0 and 4.0, but was 4.924400329589844'
         if (health > 3 && health < maxHealth){

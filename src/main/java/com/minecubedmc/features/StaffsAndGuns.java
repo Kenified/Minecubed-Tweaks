@@ -23,7 +23,7 @@ import java.util.List;
 
 public class StaffsAndGuns implements Listener {
 
-    class CastingItem<T> {
+    static class CastingItem<T> {
         public final String itemID;
         public final String soundEffectID;
         public final ItemStack ammoItem;

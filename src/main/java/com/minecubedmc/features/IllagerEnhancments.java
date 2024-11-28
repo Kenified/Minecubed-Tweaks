@@ -58,7 +58,7 @@ public class IllagerEnhancments implements Listener {
                 illager.getEquipment().setItemInMainHand(patrolLeaderCrossbow);
             } else if (illager instanceof Vindicator vindicator) {
                 ItemStack theVindicator = Cache.getCustomItem("minecubed:the_vindicator");
-                theVindicator.addEnchantment(Enchantment.DAMAGE_ALL, 5);
+                theVindicator.addEnchantment(Enchantment.SHARPNESS, 5);
                 theVindicator.setDurability(vindicator.getEquipment().getItemInMainHand().getDurability());
                 vindicator.getEquipment().setItemInMainHand(theVindicator);
             }

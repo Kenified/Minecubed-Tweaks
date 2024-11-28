@@ -38,8 +38,9 @@ public class FreezeInWinter extends BukkitRunnable {
             Block block = playerLocation.getBlock();
 
             // Get biome key from block
-            String biomeKey = BasicUtils.getBiomeKey(playerLocation);
-
+//            String biomeKey = BasicUtils.getBiomeKey(playerLocation);
+            String biomeKey = block.getBiome().getKey().toString();
+            
             //Don't freeze in warm biomes
             if (isInWarmBiome(biomeKey)) {
                 player.lockFreezeTicks(false);

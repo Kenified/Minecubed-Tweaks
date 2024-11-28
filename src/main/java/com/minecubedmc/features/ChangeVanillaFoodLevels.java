@@ -120,7 +120,7 @@ public class ChangeVanillaFoodLevels implements Listener {
                 event.setCancelled(true);
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400, 1, true ));
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 3, true ));
-                eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 6000, 0, true ));
+                eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 6000, 0, true ));
                 eventPlayer.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 6000, 0, true ));
                 handleFood(eventPlayer, eventFood, 12, 12.1f, null);
                 break;

@@ -298,12 +298,6 @@ public class BasicUtils {
         return binaryDigits;
     }
 
-    // TODO: Temporarily use unsafe method to get biome key until paper adds official method
-    @SuppressWarnings("deprecation")
-    public static String getBiomeKey(final @NotNull Location location) {
-        return Bukkit.getUnsafe().getBiomeKey(location.getWorld(), location.blockX(), location.blockY(), location.blockZ()).toString();
-    }
-
     public static boolean afkCheck(Location location) {
         //AFK check
         Collection<Player> players = location.getNearbyPlayers(( location.getWorld().getSimulationDistance() * 16) + 8 );
