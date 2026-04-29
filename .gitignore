@@ -1,4 +1,5 @@
 MinecubedTweaks.iml
+.idea/*
 .idea/.gitignore
 .idea/checkstyle-idea.xml
 .idea/compiler.xml

@@ -114,7 +114,7 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.3-R0.1-SNAPSHOT</version>
+            <version>1.21.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- ItemsAdder API -->
@@ -163,9 +163,9 @@
         </dependency>
         <!-- Aurelium Skills -->
         <dependency>
-            <groupId>com.github.Archy-X</groupId>
-            <artifactId>AureliumSkills</artifactId>
-            <version>Beta1.3.9</version>
+            <groupId>dev.aurelium</groupId>
+            <artifactId>auraskills-api-bukkit</artifactId>
+            <version>2.2.4</version>
             <scope>provided</scope>
         </dependency>
         <!-- AuthMe -->

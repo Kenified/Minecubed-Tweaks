@@ -37,7 +37,7 @@ public class Cache {
         // Special cases
         switch (ID) {
             case "minecubed:tripwire" -> {
-                return new ItemStack(Material.TRIPWIRE);
+                return new ItemStack(Material.STRING);
             }
             case "minecubed:giant_cocoa_north", "minecubed:giant_cocoa_west", "minecubed:giant_cocoa_east", "minecubed:giant_cocoa_south" ->
                 ID = "minecubed:giant_cocoa";

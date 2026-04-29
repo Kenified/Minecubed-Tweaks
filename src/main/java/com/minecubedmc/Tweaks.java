@@ -4,6 +4,7 @@ import com.earth2me.essentials.Essentials;
 import com.minecubedmc.commands.DyeCommand;
 import com.minecubedmc.commands.EndRatingPeriod;
 import com.minecubedmc.commands.PlayerInfoCommand;
+import com.minecubedmc.commands.SetHeight;
 import com.minecubedmc.features.*;
 import com.minecubedmc.tasks.*;
 import com.minecubedmc.util.HeadDBLoad;
@@ -20,7 +21,7 @@ import java.util.List;
 public final class Tweaks extends JavaPlugin{
 
     private static Tweaks instance;
-    private static final String[] worldsList = new String[]{/*"world_spawn",*/ "world_shops", "dungeon_vexkin"}; //arena_pvp
+    private static final String[] worldsList = new String[]{"world_spawn", "world_shops", "dungeon_vexkin"}; //arena_pvp
     private static PluginManager pluginManager;
     private static SeasonsAPI seasonsAPI;
     private static String season;
@@ -91,7 +92,7 @@ public final class Tweaks extends JavaPlugin{
             new DirtyWaterBottle(),
             new WaterCauldronPurify(),
             new FillCauldronWithDirtyWater(),
-            new MilkBottleFromCow(),
+//            new MilkBottleFromCow(),
             new TreeBarkStrip(),
             new ChickenExtraFeathers(),
             new NoTorchesInDeepDark(),
@@ -110,7 +111,7 @@ public final class Tweaks extends JavaPlugin{
             new FertilizableFlowers(this),
             new SelfPlantingSaplings(this),
             new CustomLeavesDrops(this),
-            new CustomSaplings(),
+            new CustomSaplings(this),
             new NerfChiseledBookshelfLoot(this),
             new IllagerEnhancments(this),
             new NerfCoinDrops(this),
@@ -119,7 +120,8 @@ public final class Tweaks extends JavaPlugin{
             new CustomLeavesPersistent(this),
             new DangerousDark(this),
             new TougherPets(this),
-            new RankingSystem(this)
+            new RankingSystem(this),
+            new StrongerLlamas()
 //            new BreakablePlayerSpawners(this)
 //            , new Diseases()
         ).
@@ -136,7 +138,8 @@ public final class Tweaks extends JavaPlugin{
 //            new InfectionsCommand("getinfections"),
 //            new RemoveInfectionCommand("removeinfection"),
             new PlayerInfoCommand(this, "playerinfo"),
-            new EndRatingPeriod( "endratingperiod")
+            new EndRatingPeriod( "endratingperiod"),
+            new SetHeight("setheight")
             
         ).
         forEach(

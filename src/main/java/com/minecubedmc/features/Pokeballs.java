@@ -121,7 +121,7 @@ public class Pokeballs implements Listener {
         // Deserialize the data into an entity
         Entity deserializedEntity = Bukkit.getUnsafe().deserializeEntity(serializedEntity, location.getWorld());
 
-
+        // TODO: Add realistic animal back to hashmap
         // Spawn entity
         deserializedEntity.spawnAt(location);
 
@@ -150,7 +150,6 @@ public class Pokeballs implements Listener {
             return;
         }
 
-
         // If projectile did not hit an entity, skip
         Entity hitEntity = event.getHitEntity();
         if(hitEntity == null) {
@@ -167,6 +166,7 @@ public class Pokeballs implements Listener {
         }
 
         // If entity is a MythicMob, skip
+        // TODO: Add support for MythicMobs
         if ( Tweaks.getPluginManager().isPluginEnabled("MythicMobs") ) {
             if (MythicBukkit.inst().getMobManager().isMythicMob(hitEntity)){
                 // If projectile hit a MythicMob, drop empty pokeball
@@ -227,6 +227,7 @@ public class Pokeballs implements Listener {
         // Curious about the size of serialized entity
         plugin.getLogger().info("Entity serialized size= " + serializedEntity.length + "B");
 
+        // TODO: Remove realistic animal from the hashmaps
         // Remove entity once serialized
         entity.remove();
 

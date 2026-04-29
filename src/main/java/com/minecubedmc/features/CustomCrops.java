@@ -1,11 +1,9 @@
 package com.minecubedmc.features;
 
-import com.archyx.aureliumskills.api.AureliumAPI;
-import com.archyx.aureliumskills.skills.Skills;
-import com.archyx.aureliumskills.skills.farming.FarmingSource;
-import com.archyx.aureliumskills.source.SourceManager;
 import com.minecubedmc.Tweaks;
 import com.minecubedmc.util.Cache;
+import dev.aurelium.auraskills.api.AuraSkillsApi;
+import dev.aurelium.auraskills.api.user.SkillsUser;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -91,6 +89,7 @@ public class CustomCrops implements Listener {
     }
     
     private void handleCrop(final ItemStack eventItem, final ItemStack placedSeed, final Material crop, int stage, final BlockPlaceEvent event){
+        // TODO: figure out why pumpkin seeds named "nut" place corn
         if (placedSeed.isSimilar(eventItem)){
             //Set Age blockdata
             BlockData blockData = crop.createBlockData();
@@ -156,20 +155,24 @@ public class CustomCrops implements Listener {
             Block block = e.getBlock();
             Material type = block.getType();
     
-            // TODO: do this cleaner
+            // TODO: figure out how to get the xp amount with new AureliumSkills API
             if (Bukkit.getServer().getPluginManager().isPluginEnabled("AureliumSkills")) {
                 //Add Aurellium skills support
-                double xpAmount = 0;
-                SourceManager sourceManager = AureliumAPI.getPlugin().getSourceManager();
-                if (type.equals(Material.CARROTS) || type.equals(Material.WHEAT)) { //Lettuce && Rice
-                    xpAmount = sourceManager.getXp(FarmingSource.CARROT);
-                } else if (type.equals(Material.POTATOES)) { // Onion
-                    xpAmount = sourceManager.getXp(FarmingSource.POTATO);
-                } else if (CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_eggplant").getBlockData() == block.getBlockData() || CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_corn").getBlockData() == block.getBlockData()) { //Eggplant && Corn
-                    xpAmount = sourceManager.getXp(FarmingSource.BEETROOT);
-                }
+//                double xpAmount = 0;
+                AuraSkillsApi auraSkillsApi = AuraSkillsApi.get();
+                SkillsUser user = auraSkillsApi.getUser(e.getPlayer().getUniqueId());
+            
+//                SourceManager sourceManager = AureliumAPI.getPlugin().getSourceManager();
+//                if (type.equals(Material.CARROTS) || type.equals(Material.WHEAT)) { //Lettuce && Rice
+//                    xpAmount = sourceManager.getXp(FarmingSource.CARROT);
+//                } else if (type.equals(Material.POTATOES)) { // Onion
+//                    xpAmount = sourceManager.getXp(FarmingSource.POTATO);
+//                } else if (CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_eggplant").getBlockData() == block.getBlockData() || CustomTripwireBlockSystem.getCustomBlock("minecubed:grown_corn").getBlockData() == block.getBlockData()) { //Eggplant && Corn
+//                    xpAmount = sourceManager.getXp(FarmingSource.BEETROOT);
+//                }
     
-                AureliumAPI.addXp(e.getPlayer(), Skills.FARMING, xpAmount);
+                
+//                AureliumAPI.addXp(e.getPlayer(), Skills.FARMING, xpAmount);
             }
         }
         else {

@@ -65,7 +65,7 @@ public class SortingTool implements Listener {
             // Sort chest
             sort_chest((Chest) block.getState());
             // Set cool down
-            player.setCooldown(eventItem.getType(), 100);
+            player.setCooldown(eventItem.getType(), 20);
 
             plugin.getLogger().info("Sorted chest");
 

@@ -1,5 +1,6 @@
 package com.minecubedmc.features;
 
+import com.minecubedmc.Tweaks;
 import com.minecubedmc.util.Cache;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -14,6 +15,12 @@ import java.util.logging.Logger;
 
 public class CustomSaplings implements Listener {
 
+    Tweaks plugin;
+    
+    public CustomSaplings(Tweaks plugin){
+        this.plugin = plugin;
+    }
+    
     @EventHandler
     public void onCustomSaplingPlace(BlockPlaceEvent event){
         if (event.isCancelled()){
@@ -58,8 +65,12 @@ public class CustomSaplings implements Listener {
         block.setType(saplingType);
         Sapling saplingData = (Sapling) block.getBlockData();
         saplingData.setStage(1);
-        block.setBlockData(saplingData);
-
+        
+        // Delay the data setting by few ticks to bypass ValhallaMMO changing it to 0
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            block.setBlockData(saplingData);
+        }, 5L);
+        
         if (event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
             return;
         }

@@ -301,7 +301,7 @@ public class BasicUtils {
     public static boolean afkCheck(Location location) {
         //AFK check
         Collection<Player> players = location.getNearbyPlayers(( location.getWorld().getSimulationDistance() * 16) + 8 );
-        return players.parallelStream().allMatch(player -> Tweaks.getEssentials().getUser(player).isAfk() || player.getGameMode().equals(GameMode.SPECTATOR));
+        return players. parallelStream().allMatch(player -> Tweaks.getEssentials().getUser(player).isAfk() || player.getGameMode().equals(GameMode.SPECTATOR));
     }
 
     public static class TickInventories {
